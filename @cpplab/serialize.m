@@ -22,7 +22,15 @@ values = [];
 is_relational = logical([]);
 
 for i = 1:length(props)
-	if isa(self.(props{i}),'double') && ~isempty(self.(props{i}))
+	if length(self.(props{i})) > 1 && isa(self.(props{i}),'cpplab')
+		% vector of cpplab objects 
+		for j = 1:length(self.(props{i}))
+			[V, N, I] = self.(props{i})(j).serialize([prefix props{i} mat2str(j)]);
+			values = [values; V];
+			names = [names; N];
+			is_relational = [is_relational(:); I(:)];
+		end
+	elseif isa(self.(props{i}),'double') && ~isempty(self.(props{i}))
 		names = [names; [prefix props{i}]];
 		values = [values; self.(props{i})];
 		is_relational(length(values)) = false;

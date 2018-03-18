@@ -23,8 +23,12 @@ if nargin == 2
 end
 
 for i = 1:length(props)
-
-	if isa(self.(props{i}),'double') && ~isempty(self.(props{i}))
+	if length(self.(props{i})) > 1 && isa(self.(props{i}),'cpplab')
+		% vector of cpplab objects 
+		for j = 1:length(self.(props{i}))
+			self.(props{i}(j)).deserialize();
+		end
+	elseif isa(self.(props{i}),'double') && ~isempty(self.(props{i}))
 		self.(props{i}) = pstate(1);
 		pstate(1) = [];
 	elseif isa(self.(props{i}),'function_handle') 

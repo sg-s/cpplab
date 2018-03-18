@@ -12,7 +12,11 @@ H{1} = self.cpp_class_path;
 
 props = properties(self);
 for i = 1:length(props)
-	if isa(self.(props{i}),'cpplab')
+	if length(self.(props{i})) > 1 && isa(self.(props{i}),'cpplab')
+		for j = 1:length(self.(props{i}))
+			H = [H; self.(props{i})(j).generateHeaders];
+		end
+	elseif isa(self.(props{i}),'cpplab')
 		H = [H; self.(props{i}).generateHeaders];
 	end
 end
