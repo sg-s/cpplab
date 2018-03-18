@@ -7,7 +7,7 @@
 % serializes an object so you can pass it easily
 % to a mexable C++ binary
 
-function [values, names, is_relational, cpp_class] = serialize(self, prefix)
+function [values, names, is_relational] = serialize(self, prefix)
 
 if nargin < 2
 	prefix = '';
@@ -16,7 +16,7 @@ else
 end
 
 
-props = properties(self);
+props = sort(properties(self));
 names = {};
 values = [];
 is_relational = logical([]);

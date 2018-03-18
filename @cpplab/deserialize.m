@@ -15,7 +15,7 @@
 
 function deserialize(self,state)
 
-props = properties(self);
+props = sort(properties(self));
 
 persistent pstate;
 if nargin == 2
@@ -26,7 +26,7 @@ for i = 1:length(props)
 	if length(self.(props{i})) > 1 && isa(self.(props{i}),'cpplab')
 		% vector of cpplab objects 
 		for j = 1:length(self.(props{i}))
-			self.(props{i}(j)).deserialize();
+			self.(props{i})(j).deserialize();
 		end
 	elseif isa(self.(props{i}),'double') && ~isempty(self.(props{i}))
 		self.(props{i}) = pstate(1);

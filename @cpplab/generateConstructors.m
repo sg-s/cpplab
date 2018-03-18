@@ -44,7 +44,7 @@ for i = 1:length(props)
 			
 			cpp_con_sig = S.cpp_constructor_signature;
 			cpp_class_parent = [cpp_class_parent; S.cpp_class_parent];
-			names = [names; prefix props{i}];
+			names = [names; prefix props{i} mat2str(j)];
 			this_constructor = [S.cpp_class_name ' ' prefix props{i} mat2str(j) '('];
 			for k = 1:length(cpp_con_sig)
 				this_constructor = [this_constructor, [prefix props{i} mat2str(j) '_' cpp_con_sig{k}] ','];
