@@ -69,7 +69,39 @@ methods
 
 
 	% generic method that adds something as a child to this object
-	function self = add(self,name,thing)
+	function self = add(self,varargin)
+		switch length(varargin)
+		case 1
+			assert(isa(varargin{1},'cpplab'),'Argument should be a cpplab object')
+			name = varargin{1}.cpp_class_name;
+			thing = varargin{1};
+		case 2
+			if isa(varargin{2},'cpplab') && isa(varargin{1},'char')
+				name = varargin{1};
+				thing = varargin{2};
+			elseif isa(varargin{1},'cpplab') && isa(varargin{2},'char')
+				name = varargin{2};
+				thing = varargin{1};
+			elseif isa(varargin{1},'cpplab') && isa(varargin{2},'cpplab')
+				error('cpplab::add "add one object at a time"')
+			else
+				error('cpplab::add "I dont know what you want me to do"')
+			end
+		otherwise
+			if iseven(length(varargin))
+				name = varargin{1};
+				hpp_path = varargin{2};
+				varargin(1:2) = [];
+			else
+				hpp_path = varargin{1};
+				varargin(1) = [];
+			end
+
+			thing = cpplab(hpp_path,varargin{:});
+			if ~exist('name','var')
+				name = thing.cpp_class_name;
+			end
+		end
 		self.addprop(name);
 		self.(name) = thing;
 	end
