@@ -13,7 +13,7 @@ else
 	prefix = [prefix '_'];
 end
 
-props = properties(self);
+props = sort(properties(self));
 constructors = {};
 cpp_class_parent = {};
 names = {};

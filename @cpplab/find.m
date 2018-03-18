@@ -19,7 +19,7 @@ end
 
 objects = {};
 
-c = self.Children;
+c = sort(self.Children);
 
 for i = 1:length(c)
 	if length(self.(c{i})) > 1

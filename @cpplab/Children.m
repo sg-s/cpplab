@@ -9,7 +9,7 @@
 
 function children = Children(self)
 children = {};
-props = properties(self);
+props = sort(properties(self));
 for i = 1:length(props)
 	if isa(self.(props{i}),'cpplab')
 		children{end+1} = props{i};

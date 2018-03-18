@@ -10,7 +10,7 @@ function H = generateHeaders(self)
 H = {};
 H{1} = self.cpp_class_path;
 
-props = properties(self);
+props = sort(properties(self));
 for i = 1:length(props)
 	if length(self.(props{i})) > 1 && isa(self.(props{i}),'cpplab')
 		for j = 1:length(self.(props{i}))
