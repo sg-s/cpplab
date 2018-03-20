@@ -6,7 +6,7 @@
 %
 %
 
-classdef  cpplab < dynamicprops
+classdef  cpplab < dynamicprops & matlab.mixin.Copyable
 
 properties (SetAccess = private)
 	cpp_class_name
@@ -36,7 +36,8 @@ methods
 
 		% to do: figure out how to type dynamic props 
 		for i = 1:length(prop_names)
-			self.addprop(prop_names{i});
+			p = self.addprop(prop_names{i});
+			p.NonCopyable = false;
 			self.(prop_names{i}) = NaN;
 		end
 
@@ -102,7 +103,8 @@ methods
 				name = thing.cpp_class_name;
 			end
 		end
-		self.addprop(name);
+		p = self.addprop(name);
+		p.NonCopyable = false;
 		self.(name) = thing;
 	end
 
