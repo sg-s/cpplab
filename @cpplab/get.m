@@ -7,8 +7,20 @@
 %
 function V = get(self,thing)
 
+if iscell(thing)
+	V = NaN(length(thing),1);
+	for i = 1:length(V)
+		V(i) = self.get(thing{i});
+	end
+	return
+end
+
 ctree = strsplit(thing,'.');
 V = self;
-for i = 1:length(ctree)
-	V = V.(ctree{i});
+try
+	for i = 1:length(ctree)
+		V = V.(ctree{i});
+	end
+catch
+	V = NaN;
 end

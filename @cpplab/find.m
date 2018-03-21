@@ -9,6 +9,13 @@
 
 function objects = find(self,pattern,prefix)
 
+if any(strfind(pattern,'*'))
+	% do a wilfcard search
+	[~,~,~,real_names] = self.serialize;
+	objects = real_names(lineFind(real_names,'gbar'));
+	return
+else
+end
 
 if nargin < 3
 	prefix = '';
