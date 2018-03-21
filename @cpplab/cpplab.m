@@ -114,9 +114,13 @@ end % end normal methods
 
 methods (Static)
 	function addPath(p)
-		L = lineRead(joinPath(fileparts(fileparts(which(mfilename))),'path.cpplab'));
-		if any(lineFind(L,p))
-			return
+		if exist(joinPath(fileparts(fileparts(which(mfilename))),'path.cpplab'),'file') == 2
+			L = lineRead(joinPath(fileparts(fileparts(which(mfilename))),'path.cpplab'));
+			if any(lineFind(L,p))
+				return
+			end
+		else
+			L = {};
 		end
 		L = [L p];
 		lineWrite(joinPath(fileparts(fileparts(which(mfilename))),'path.cpplab'),L);
