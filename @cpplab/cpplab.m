@@ -6,7 +6,7 @@
 %
 %
 
-classdef  cpplab < dynamicprops & matlab.mixin.Copyable
+classdef  cpplab < dynamicprops 
 
 properties (SetAccess = private)
 	cpp_class_name
