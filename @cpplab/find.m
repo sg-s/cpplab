@@ -11,8 +11,9 @@ function objects = find(self,pattern,prefix)
 
 if any(strfind(pattern,'*'))
 	% do a wilfcard search
+	pattern = strrep(pattern,'*','');
 	[~,~,~,real_names] = self.serialize;
-	objects = real_names(lineFind(real_names,'gbar'));
+	objects = real_names(lineFind(real_names,pattern));
 	return
 else
 end
