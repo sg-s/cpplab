@@ -11,7 +11,10 @@ function H = hash(self)
 
 header_files = self.generateHeaders;
 
+header_files(cellfun(@isempty,header_files)) = [];
+
 for i = length(header_files):-1:1
+
 	[e,h] = system(['openssl sha1 "' header_files{i} '"']);
 
 	assert(e==0,'Something went wrong using openSSL')
@@ -20,8 +23,8 @@ for i = length(header_files):-1:1
 
 end
 
-lineWrite('temp.cpplab',H)
+lineWrite('temp.cpplab',H);
 
-[e,h] = system(['openssl sha1 "temp.cpplab"']);
-z = strfind(h,'=');
-H = strtrim(h(z+2:end));
+[e,o] = system(['echo ' [H{:}] '| openssl sha1']);
+H = strtrim(o);
+

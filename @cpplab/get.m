@@ -10,17 +10,20 @@ function V = get(self,thing)
 if iscell(thing)
 	V = NaN(length(thing),1);
 	for i = 1:length(V)
-		V(i) = self.get(thing{i});
+		value = self.get(thing{i});
+		if isa(value,'function_handle')
+			value = value();
+		end
+		V(i) = value;
 	end
 	return
 end
 
 ctree = strsplit(thing,'.');
 V = self;
-try
-	for i = 1:length(ctree)
-		V = V.(ctree{i});
-	end
-catch
-	V = NaN;
+
+for i = 1:length(ctree)
+	disp(V)
+	V = V.(ctree{i});
 end
+
