@@ -31,6 +31,7 @@ for i = 1:length(props)
 			[V, N, I, R] = self.(props{i})(j).serialize([prefix props{i} mat2str(j)], [real_prefix props{i} mat2str(j)]);
 			values = [values; V];
 			names = [names; N];
+			R = strrep(R,[props{i} mat2str(j)],[props{i} '(' mat2str(j) ')']);
 			real_names = [real_names; R];
 			is_relational = [is_relational(:); I(:)];
 		end

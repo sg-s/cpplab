@@ -23,6 +23,13 @@ ctree = strsplit(thing,'.');
 V = self;
 
 for i = 1:length(ctree)
-	V = V.(ctree{i});
+	if any(strfind(ctree{i},'('))
+		a = strfind(ctree{i},'(');
+		z = strfind(ctree{i},')');
+		idx = str2double(ctree{i}(a+1:z-1));
+		V = V.(ctree{i}(1:a-1))(idx);
+	else
+		V = V.(ctree{i});
+	end
 end
 
