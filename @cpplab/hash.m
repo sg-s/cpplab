@@ -23,8 +23,6 @@ for i = length(header_files):-1:1
 
 end
 
-lineWrite('temp.cpplab',H);
-
 [e,o] = system(['echo ' [H{:}] '| openssl sha1']);
 H = strtrim(o);
 
