@@ -23,7 +23,6 @@ ctree = strsplit(thing,'.');
 V = self;
 
 for i = 1:length(ctree)
-	disp(V)
 	V = V.(ctree{i});
 end
 
