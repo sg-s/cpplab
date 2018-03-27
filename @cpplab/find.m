@@ -11,9 +11,15 @@ function objects = find(self,pattern,prefix)
 
 if any(strfind(pattern,'*'))
 	% do a wilfcard search
-	pattern = strrep(pattern,'*','');
+
 	[~,~,~,real_names] = self.serialize;
-	objects = real_names(lineFind(real_names,pattern));
+
+	regStr = ['^',strrep(strrep(pattern,'?','.'),'*','.{0,}'),'$'];
+	starts = regexpi(real_names, regStr);
+	iMatch = ~cellfun(@isempty, starts);
+	idx = find(iMatch);
+
+	objects = real_names(idx);
 	return
 else
 end
