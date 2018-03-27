@@ -6,7 +6,7 @@
 %
 %
 
-classdef  cpplab < dynamicprops 
+classdef  cpplab < dynamicprops  & matlab.mixin.CustomDisplay
 
 properties (SetAccess = private)
 	cpp_class_name
@@ -47,10 +47,13 @@ methods
 
 		% validate and accept options
 		if iseven(length(varargin))
+
+			% half of them have to be char
+
 			for ii = 1:2:length(varargin)-1
 				temp = varargin{ii};
 		    	if ischar(temp)
-			    	if ~any(find(strcmp(temp,prop_names)))
+			    	if ~any(find(strcmp(temp,prop_names))) 
 			    		disp(['Unknown option: ' temp])
 			    		disp('The allowed options are:')
 			    		disp(prop_names)
@@ -58,6 +61,8 @@ methods
 			    	else
 			    		self.(temp) = varargin{ii+1};
 			    	end
+			    else
+			    	error('Expected argument to be a char')
 		    	end
 		    end
 		else
@@ -143,8 +148,68 @@ methods (Static)
 		error('cpplab::Could not resolve path')
 
 	end
+end % end static methods
 
-end
+
+methods (Access = protected)
+	
+	function displayScalarObject(self)
+
+		url = ['matlab:' inputname(1) '.cpp_class_path'];
+		fprintf(['' ' <a href="' url '">' self.cpp_class_name '</a> object with:\n\n'])
+
+		props = properties(self);
+		max_len = 0;
+		for i = 1:length(props)
+			if any(strfind(props{i},'cpp_'))
+				continue
+				
+			end
+			max_len = max([length(props{i}) max_len]);
+		end
+
+		for i = 1:length(props)
+			if any(strfind(props{i},'cpp_'))
+				continue	
+			end
+			disp_string = ['  ' props{i} ' : '];
+			if length(props{i}) < max_len
+				disp_string = [repmat(' ',1,  max_len - length(props{i})) disp_string];
+			end
+
+			if isa(self.(props{i}),'cpplab')
+			else
+				if isnumeric(self.(props{i}))
+					disp_string = [disp_string mat2str(self.(props{i}))];
+				else
+					disp_string = [disp_string class(self.(props{i}))];
+				end
+				disp(disp_string);
+			end
+		end
+
+		for i = 1:length(props)
+			if any(strfind(props{i},'cpp_'))
+				continue	
+			end
+			disp_string = ['  ' props{i} ' : '];
+			if length(props{i}) < max_len
+				disp_string = [repmat(' ',1,  max_len - length(props{i})) disp_string];
+			end
+
+			if isa(self.(props{i}),'cpplab')
+				child_type = self.(props{i}).cpp_class_name;
+				url = ['matlab:' inputname(1) '.' props{i}];
+				disp(disp_string)
+				fprintf(['\b<a href="' url '">' self.(props{i}).cpp_class_name '</a> object\n'])
+			else
+				
+			end
+		end
+
+	end
+
+end % end protected methods
 
 
 end % end classdef
