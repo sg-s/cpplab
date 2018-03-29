@@ -39,10 +39,9 @@ for i = 1:length(function_declaration_lines)
 			a = strfind(this_line,'{');
 			z = strfind(this_line,'}');
 			f = strrep(this_line(a+1:z-1),'return','');
-			variables = symvar(f);
 			ff = '@(';
-			for j = 1:length(variables)
-				ff = [ff variables{j} ','];
+			for j = 1:length(S.fun_input_names)
+				ff = [ff S.fun_input_names{j} ','];
 			end
 			ff(end) = ')';
 			ff = str2func([ff f]);
