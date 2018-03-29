@@ -13,6 +13,7 @@ properties (SetAccess = private)
 	cpp_class_path
 	cpp_constructor_signature
 	cpp_class_parent
+	cpp_child_functions
 end % end props
 
 
@@ -32,6 +33,7 @@ methods
 		end
 
 		[prop_names, prop_types] = self.readCPPClass(hpp_path);
+
 		self.cpp_constructor_signature = prop_names;
 
 		% to do: figure out how to type dynamic props 
@@ -44,6 +46,9 @@ methods
 		self.cpp_class_name = pathEnd(hpp_path);
 		self.cpp_class_path = hpp_path;
 
+
+		% read child functions of this class 
+		self.readChildFunctions(hpp_path);
 
 		% validate and accept options
 		if iseven(length(varargin))
