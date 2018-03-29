@@ -24,5 +24,16 @@ for i = length(header_files):-1:1
 end
 
 [e,o] = system(['echo ' [H{:}] '| openssl sha1']);
-H = strtrim(o);
+
+H = strrep(o,' ','');
+H = strtrim(H);
+
+if length(H) > 40
+	H = H(end-39:end);
+elseif length(H) < 40
+	error('Error determining hash!')
+end
+
+
+
 
