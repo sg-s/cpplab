@@ -1,0 +1,11 @@
+%                    _       _     
+%   ___  _     _    | | __ _| |__  
+%  / __|| |_ _| |_  | |/ _` | '_ \ 
+% | (_|_   _|_   _| | | (_| | |_) |
+%  \___||_|   |_|   |_|\__,_|_.__/ 
+% 
+% salt
+% this file will have a known SHA1 hash,
+% which will be used to check which hash 
+% method to use 
+% this is otherwise useless
