@@ -8,10 +8,9 @@
 % 
 function TF = exist(self,thing)
 
-ctree = strsplit(thing,'.');
-V = self;
-for i = 1:length(ctree)-1
-	V = V.(ctree{i});
-end
+TF = false;
 
-TF = any(strcmp(V.Children,ctree{end}));
+try
+	temp = self.get(thing);
+	TF = true;
+end

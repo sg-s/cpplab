@@ -138,19 +138,41 @@ methods (Static)
 
 
 	function resolved_p = resolvePath(p)
-		L = lineRead(joinPath(fileparts(fileparts(which(mfilename))),'path.cpplab'));
-		resolved_p = '';
-		for i = 1:length(L)
-			allfiles = getAllFiles(L{i});
-			allfiles(~cellfun(@(x) any(strfind(x,'.hpp')),allfiles)) = [];
-			idx = lineFind(allfiles,p);
-			if ~isempty(idx)
-				resolved_p = allfiles{idx};
-				return
-			end
+		path_names = strsplit(path,pathsep);
 
+		cache_path = [fileparts(fileparts(which(mfilename))) filesep 'paths.cpplab'];
+		if exist(cache_path) == 2
+			hpp_files = lineRead(cache_path);
+		else
+			hpp_files = {};
 		end
-		error('cpplab::Could not resolve path')
+
+		% first search the cache
+		idx = lineFind(hpp_files,p);
+		if isempty(idx)
+			% rebuild the cache
+			for i = 1:length(path_names)
+				if any(strfind(path_names{i},matlabroot))
+					continue
+				end
+				allfiles = getAllFiles(path_names{i});
+				for j = 1:length(allfiles)
+					if strcmp(allfiles{j}(end-3:end),'.hpp')
+						hpp_files{end+1} = allfiles{j};
+					end
+				end
+			end
+			lineWrite(cache_path,hpp_files);
+			idx = lineFind(hpp_files,p);
+		end
+
+		if length(idx) > 1
+			idx = idx(1);
+		end
+		assert(length(idx) == 1,'cpplab::could not resolve path')
+		resolved_p = hpp_files{idx};
+
+
 
 	end
 end % end static methods
