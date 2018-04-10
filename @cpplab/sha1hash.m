@@ -6,7 +6,7 @@
 %
 % generates hash of object from header files
 
-function H = hash(self)
+function sha1hash(self)
 
 
 % figure out if we should use dataHash or openssl
@@ -60,6 +60,7 @@ else
 
 end
 
+self.hash = H;
 
 
 % hash using dataHash

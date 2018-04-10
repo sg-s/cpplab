@@ -14,6 +14,7 @@ properties (SetAccess = private)
 	cpp_constructor_signature
 	cpp_class_parent
 	cpp_child_functions
+	hash
 end % end props
 
 
@@ -116,6 +117,26 @@ methods
 		p = self.addprop(name);
 		p.NonCopyable = false;
 		self.(name) = thing;
+
+		v = evalin('base','whos');
+		hash_these = false(length(v));
+		for i = 1:length(v)
+			if strcmp(v(i).class,'cpplab')
+				hash_these(i) = true;
+			end
+			S = superclasses(v(i).class);
+			if ~isempty(S)
+				if any(strcmp(S,'cpplab'))
+					hash_these(i) = true;
+				end
+			end
+		end
+		% ok, now ask these objects to hash
+		for i = 1:length(v)
+			if hash_these(i)
+				evalin('base',[v(i).name '.sha1hash;']);
+			end
+		end
 	end
 
 
@@ -123,18 +144,6 @@ end % end normal methods
 
 
 methods (Static)
-	function addPath(p)
-		if exist(joinPath(fileparts(fileparts(which(mfilename))),'path.cpplab'),'file') == 2
-			L = lineRead(joinPath(fileparts(fileparts(which(mfilename))),'path.cpplab'));
-			if any(lineFind(L,p))
-				return
-			end
-		else
-			L = {};
-		end
-		L = [L p];
-		lineWrite(joinPath(fileparts(fileparts(which(mfilename))),'path.cpplab'),L);
-	end % end addPath
 
 
 	function resolved_p = resolvePath(p)
@@ -171,8 +180,6 @@ methods (Static)
 		end
 		assert(length(idx) == 1,'cpplab::could not resolve path')
 		resolved_p = hpp_files{idx};
-
-
 
 	end
 end % end static methods
