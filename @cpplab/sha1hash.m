@@ -50,7 +50,7 @@ for i = length(header_files):-1:1
 end
 
 
-if data_hash_ok
+if data_hash_ok && ismac
 	options.Method = 'SHA1';
 	options.Input = 'bin';
 	H = dataHash([H{:}],options);
