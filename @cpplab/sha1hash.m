@@ -12,24 +12,26 @@ function sha1hash(self)
 % figure out if we should use dataHash or openssl
 data_hash_ok = false;
 open_ssl_ok = false;
-if exist([fileparts(which(mfilename)) filesep 'hash_engine.cpplab']) == 0
-	salt_path = [fileparts(which(mfilename)) filesep 'salt.cpplab'];
-	salt_hash = 'b064f8c6d999dcc78cd196f4717c627f0a3a04b3';
+try
+	if exist([fileparts(which(mfilename)) filesep 'hash_engine.cpplab']) == 0
+		salt_path = [fileparts(which(mfilename)) filesep 'salt.cpplab'];
+		salt_hash = 'b064f8c6d999dcc78cd196f4717c627f0a3a04b3';
 
 
-	if strcmp(dataHash_sha1(salt_path),salt_hash)
-		data_hash_ok = true;
+		if strcmp(dataHash_sha1(salt_path),salt_hash)
+			data_hash_ok = true;
+		end
+
+		if strcmp(openssl_sha1(salt_path),salt_hash)
+			open_ssl_ok = true;
+		end
+		save([fileparts(which(mfilename)) filesep 'hash_engine.cpplab'],'data_hash_ok','open_ssl_ok')
+
+	else
+		load([fileparts(which(mfilename)) filesep 'hash_engine.cpplab'],'-mat')
 	end
-
-	if strcmp(openssl_sha1(salt_path),salt_hash)
-		open_ssl_ok = true;
-	end
-	save([fileparts(which(mfilename)) filesep 'hash_engine.cpplab'],'data_hash_ok','open_ssl_ok')
-
-else
-	load([fileparts(which(mfilename)) filesep 'hash_engine.cpplab'],'-mat')
+catch
 end
-
 
 if ~data_hash_ok & ~open_ssl_ok
 	warning('Hashing not supported on this platform. Use with caution')
