@@ -163,6 +163,10 @@ methods (Static)
 			return
 		end
 
+		if ispc
+			p = strrep(p,'/','\');
+		end
+
 		% first search the cache
 		idx = lineFind(hpp_files,p);
 		if isempty(idx)
