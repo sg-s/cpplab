@@ -56,6 +56,12 @@ if data_hash_ok && ismac
 	options.Method = 'SHA1';
 	options.Input = 'bin';
 	H = dataHash([H{:}],options);
+elseif ispc
+	if length(H) > 1
+		options.Method = 'SHA1';
+		options.Input = 'char';
+		H = dataHash([H{:}],options);
+	end
 else
 	[e,o] = system(['echo ' [H{:}] '| openssl sha1']);
 	H = strrep(o,' ','');
