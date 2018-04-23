@@ -14,8 +14,11 @@ properties (SetAccess = private)
 	cpp_constructor_signature
 	cpp_class_parent
 	cpp_child_functions
-	hash
 end % end props
+
+properties
+	hash
+end
 
 
 methods
@@ -146,14 +149,18 @@ end % end normal methods
 methods (Static)
 
 
-	function resolved_p = resolvePath(p)
+	function [resolved_p, hpp_files] = resolvePath(p)
 		path_names = strsplit(path,pathsep);
-
+		resolved_p = [];
 		cache_path = [fileparts(fileparts(which(mfilename))) filesep 'paths.cpplab'];
 		if exist(cache_path) == 2
 			hpp_files = lineRead(cache_path);
 		else
 			hpp_files = {};
+		end
+
+		if nargout == 2
+			return
 		end
 
 		% first search the cache
