@@ -8,7 +8,6 @@
 
 function sha1hash(self)
 
-
 % figure out if we should use dataHash or openssl
 data_hash_ok = false;
 open_ssl_ok = false;
@@ -39,18 +38,27 @@ if ~data_hash_ok & ~open_ssl_ok
 	return
 end
 
-header_files = self.generateHeaders;
-header_files(cellfun(@isempty,header_files)) = [];
-
-for i = length(header_files):-1:1
+% if it has no children, just hash it if need be
+if isempty(self.Children) & isempty(self.hash)
 	if data_hash_ok
-		h = dataHash_sha1(header_files{i});
+		self.hash = dataHash_sha1(self.cpp_class_path);
 	else
-		h = openssl_sha1(header_files{i});
+		self.hash = openssl_sha1(self.cpp_class_path);
 	end
-	H{i} = h;
-end
+	return
+elseif isempty(self.Children) & ~isempty(self.hash)
+	% already has hash, no children, so don't do anything
+	return
+elseif ~isempty(self.Children) 
+	% it has children. so whether it has a hash or not,
+	% rehash all children, then rehash this object
+	for i = 1:length(self.Children)
+		self.(self.Children{i}).sha1hash;
+	end
 
+	% now we need to collect hashes from all children
+	H = self.getAllHashes;
+end
 
 if data_hash_ok && ismac
 	options.Method = 'SHA1';
