@@ -11,7 +11,7 @@ function H = getAllHashes(self)
 
 H = {};
 if isempty(self.hash)
-	H{1} = repmat('0',1,40);
+	H{1} = repmat('0',1,32);
 else
 	H{1} = self.hash;
 end

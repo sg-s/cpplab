@@ -21,10 +21,10 @@ lines = lineRead(cppfilename);
 % find the lines where the class is declared
 constructor_lines = [];
 for i = 1:length(lines)
-	if length(lines{i}) < lc
+	if length(lines{i}) < lc + 1 
 		continue
 	end
-	if strcmp(lines{i}(1:lc),class_name)
+	if strcmp(strtrim(lines{i}(1:lc+1)),[class_name '('])
 		constructor_lines = [constructor_lines; i];
 	end
 end

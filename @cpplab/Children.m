@@ -11,7 +11,18 @@ function children = Children(self)
 children = {};
 props = sort(properties(self));
 for i = 1:length(props)
+
+	if any( strfind(props{i},'cpp_'))
+		continue
+	end
+
+	if any( strfind(props{i},'hash'))
+		continue
+	end
+
+
 	if isa(self.(props{i}),'cpplab')
 		children{end+1} = props{i};
 	end
+
 end
