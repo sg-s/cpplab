@@ -15,7 +15,18 @@ catch
 	GetMD5;
 end
 
+
+% if this is somehow a vector of cpplab objects,
+% run it on a loop
+if length(self) > 1
+	for i = 1:length(self)
+		self(i).sha1hash;
+	end
+	return
+end
+
 % if it has no children, just hash it if need be
+
 if isempty(self.Children) & isempty(self.hash)
 
 	if isempty(self.cpp_class_path)
