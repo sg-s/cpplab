@@ -25,6 +25,10 @@ if length(self) > 1
 	return
 end
 
+if self.skip_hash
+	return
+end
+
 % if it has no children, just hash it if need be
 
 if isempty(self.Children) & isempty(self.hash)
@@ -46,14 +50,13 @@ elseif ~isempty(self.Children)
 
 	% now we need to collect hashes from all children
 	H = self.getAllHashes;
-end
 
+	% skip the first one because that breaks everything.
+	H = H(2:end);
+end
 
 H = GetMD5([H{:}]);
 self.hash = H;
-
-
-end
 
 
 
