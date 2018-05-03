@@ -53,7 +53,7 @@ methods
 
 
 		% read child functions of this class 
-		self.readChildFunctions(hpp_path);
+		self.readChildFunctions();
 
 		% validate and accept options
 		if iseven(length(varargin))
@@ -109,6 +109,7 @@ methods (Static)
 
 		% first search the cache
 		idx = lineFind(hpp_files,p);
+
 		if isempty(idx)
 			% rebuild the cache
 			for i = 1:length(path_names)

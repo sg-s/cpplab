@@ -1,7 +1,7 @@
 
-function child_functions = readChildFunctions(self, hpp_path)
+function child_functions = readChildFunctions(self)
 
-L = lineRead(hpp_path);
+L = lineRead(self.cpp_class_path);
 
 
 function_declaration_lines = lineFind(L,[self.cpp_class_name '::']);
@@ -25,9 +25,14 @@ for i = 1:length(function_declaration_lines)
 		this_line = this_line(1:z-1);
 	end
 
+	if isempty(this_line)
+		continue
+	end
+
 	temp = strsplit(this_line, {' ', '(' ,',' ,')' ,';' ,'//'});
 	temp(cellfun(@isempty,temp)) = [];
 	S.fun_return_type = temp{1};
+
 	S.fun_name = strrep(temp{2}, [self.cpp_class_name '::'],'');
 	S.fun_input_type = {temp{3:2:end}};
 	S.fun_input_names = {temp{4:2:end}};
