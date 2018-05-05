@@ -4,9 +4,18 @@
 function self = add(self,varargin)
 switch length(varargin)
 case 1
-	assert(isa(varargin{1},'cpplab'),'Argument should be a cpplab object')
-	name = varargin{1}.cpp_class_name;
-	thing = varargin{1};
+
+	if ischar(varargin{1})
+		thing = cpplab(varargin{1});
+		name = thing.cpp_class_name;
+	elseif (isa(varargin{1},'cpplab'))
+		name = varargin{1}.cpp_class_name;
+		thing = varargin{1};
+	else
+		error('One argument provided, which is neither a string nor a cpplab object. I dont know what you want me to do')
+	end
+
+	
 case 2
 	if isa(varargin{2},'cpplab') && isa(varargin{1},'char')
 		name = varargin{1};

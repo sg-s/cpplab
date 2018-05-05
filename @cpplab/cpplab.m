@@ -79,6 +79,8 @@ methods
 			error('Inputs need to be name value pairs')
 		end
 
+		self.sha1hash;
+
 
 	end % end constructor
 
