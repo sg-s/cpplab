@@ -6,7 +6,7 @@
 %
 % generates hash of object and all its children
 
-function sha1hash(self)
+function md5hash(self)
 
 try
 	GetMD5(0,'Array');
