@@ -17,6 +17,13 @@ if iscell(thing)
 	return
 end
 
+if any(strfind(thing,'*'))
+	% first find objects, then get them
+	self.set(self.find(thing),value);
+	return
+end
+
+
 ctree = strsplit(thing,'.');
 V = self;
 

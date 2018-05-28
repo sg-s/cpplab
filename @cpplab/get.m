@@ -4,7 +4,8 @@
 % | (_|_   _|_   _| | | (_| | |_) |
 %  \___||_|   |_|   |_|\__,_|_.__/ 
 %
-%
+% finds values of objects in the cpplab tree
+
 function V = get(self,thing)
 
 if iscell(thing)
@@ -18,6 +19,13 @@ if iscell(thing)
 	end
 	return
 end
+
+if any(strfind(thing,'*'))
+	% first find objects, then get them
+	V = self.get(self.find(thing));
+	return
+end
+
 
 ctree = strsplit(thing,'.');
 V = self;
