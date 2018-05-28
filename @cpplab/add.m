@@ -66,6 +66,6 @@ for i = 1:length(v)
 		if strcmp(v(i).name,'ans')
 			continue
 		end
-		evalin('base',[v(i).name '.sha1hash;']);
+		evalin('base',[v(i).name '.md5hash;']);
 	end
 end

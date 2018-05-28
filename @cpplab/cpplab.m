@@ -79,7 +79,7 @@ methods
 			error('Inputs need to be name value pairs')
 		end
 
-		self.sha1hash;
+		self.md5hash;
 
 
 	end % end constructor

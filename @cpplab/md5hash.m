@@ -20,7 +20,7 @@ end
 % run it on a loop
 if length(self) > 1
 	for i = 1:length(self)
-		self(i).sha1hash;
+		self(i).md5hash;
 	end
 	return
 end
@@ -45,7 +45,7 @@ elseif ~isempty(self.Children)
 	% it has children. so whether it has a hash or not,
 	% rehash all children, then rehash this object
 	for i = 1:length(self.Children)
-		self.(self.Children{i}).sha1hash;
+		self.(self.Children{i}).md5hash;
 	end
 
 	% now we need to collect hashes from all children
