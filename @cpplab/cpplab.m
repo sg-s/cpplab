@@ -29,6 +29,11 @@ methods
 			return
 		end
 
+		d = dbstack;
+		if any(strcmp({d.name},'copy'))
+			return
+		end
+
 		% resolve the path
 		if exist(hpp_path,'file') == 2
 			% all good
@@ -37,8 +42,8 @@ methods
 			hpp_path = cpplab.resolvePath(hpp_path);
 		end
 
+		
 		[prop_names, prop_types] = self.readCPPClass(hpp_path);
-
 		self.cpp_constructor_signature = prop_names;
 
 		% to do: figure out how to type dynamic props 
@@ -54,6 +59,7 @@ methods
 
 		% read child functions of this class 
 		self.readChildFunctions();
+
 
 		% validate and accept options
 		if iseven(length(varargin))
