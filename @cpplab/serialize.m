@@ -35,7 +35,10 @@ for i = 1:length(props)
 			real_names = [real_names; R];
 			is_relational = [is_relational(:); I(:)];
 		end
-	elseif isa(self.(props{i}),'double') && ~isempty(self.(props{i}))
+	elseif isa(self.(props{i}),'double') && ~isempty(self.(props{i})) 
+		if ~isscalar(self.(props{i}))
+			continue
+		end
 		names = [names; [prefix props{i}]];
 		real_names = [real_names; [real_prefix props{i}]];
 		values = [values; self.(props{i})];
