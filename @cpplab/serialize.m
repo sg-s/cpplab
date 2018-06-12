@@ -25,6 +25,19 @@ values = [];
 is_relational = logical([]);
 
 for i = 1:length(props)
+
+	% check if it's hidden or should be otherwise ignored
+	if strcmp(props{i},'hidden_props')
+		continue
+	end
+	if any(strfind(props{i},'cpp_'))
+		continue
+	end
+
+	if any(strcmp(props{i},self.hidden_props))
+		continue
+	end
+
 	if length(self.(props{i})) > 1 && isa(self.(props{i}),'cpplab')
 		% vector of cpplab objects 
 		for j = 1:length(self.(props{i}))

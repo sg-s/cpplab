@@ -14,6 +14,7 @@ properties (SetAccess = private)
 	cpp_constructor_signature
 	cpp_class_parent
 	cpp_child_functions
+	hidden_props
 end % end props
 
 properties
@@ -89,6 +90,11 @@ methods
 
 
 	end % end constructor
+
+
+	function setHiddenProps(self,hidden_props)
+		self.hidden_props = hidden_props;
+	end
 
 
 end % end normal methods
