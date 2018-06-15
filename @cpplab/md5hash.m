@@ -6,7 +6,7 @@
 %
 % generates hash of object and all its children
 
-function md5hash(self)
+function varargout = md5hash(self)
 
 try
 	GetMD5(0,'Array');
@@ -57,6 +57,15 @@ end
 
 H = GetMD5([H{:}]);
 self.hash = H;
+
+if nargout > 0
+	% return the hash, and a combined hash
+	varargout{1} = H;
+
+	varargout{2} = GetMD5([H GetMD5(self.serialize)]);
+
+
+end
 
 
 
