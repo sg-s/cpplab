@@ -171,6 +171,8 @@ methods (Access = protected)
 		for i = 1:length(props)
 			if any(strfind(props{i},'cpp_'))
 				continue	
+			elseif strcmp(props{i},'hidden_props')
+				continue
 			end
 			disp_string = ['  ' props{i} ' : '];
 			if length(props{i}) < max_len
