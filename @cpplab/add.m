@@ -30,10 +30,20 @@ case 2
 		thing = varargin{1};
 	elseif isa(varargin{1},'cpplab') && isa(varargin{2},'cpplab')
 		error('cpplab::add "add one object at a time"')
+	elseif isa(varargin{1},'char') && isa(varargin{2},'char')
+		% interpret the first string to be the type, and the second to be the name
+		name = varargin{2};
+		thing = cpplab(varargin{1});
 	else
 		error('cpplab::add "I dont know what you want me to do"')
 	end
 otherwise
+
+	if isa(varargin{1},'cpplab')
+		error('A cpplab object was detected. If you want to add a cpplab object to another one, you must first configure it, then add it.')
+
+	end
+
 	if iseven(length(varargin))
 		name = varargin{1};
 		hpp_path = varargin{2};
