@@ -126,6 +126,7 @@ methods (Static)
 
 		if isempty(idx)
 			% rebuild the cache
+			hpp_files = {};
 			for i = 1:length(path_names)
 				if any(strfind(path_names{i},matlabroot))
 					continue
