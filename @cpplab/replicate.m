@@ -9,10 +9,13 @@
 function replicate(self,thing,N)
 
 
-assert(isint(N),'N must be an integer > 1')
-assert(isscalar(N),'N must be an integer > 1')
-assert(N > 1,'N must be an integer > 1')
+assert(isint(N),'N must be an integer >= 1')
+assert(isscalar(N),'N must be an integer >= 1')
+assert(N >= 1,'N must be an integer >= 1')
 
+if N == 1
+	return
+end
 
 skip_hash_state = self.skip_hash;
 self.skip_hash = true;
