@@ -29,5 +29,5 @@ end
 C = self.Children;
 for i = 1:length(C)
 	NN = self.(C{i}).copy;
-	N.add(C{i},NN);
+	N.addNoHash(C{i},NN);
 end

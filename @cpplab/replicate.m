@@ -41,4 +41,8 @@ for i = 2:N
 	self.(new_thing_name) = root_thing;
 end
 
+% we're going to cheat and not rehash the entire tree
+self.hash = GetMD5([self.hash GetMD5(N)]);
+
+
 self.skip_hash = skip_hash_state;
