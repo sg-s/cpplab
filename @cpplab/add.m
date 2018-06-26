@@ -62,7 +62,7 @@ p = self.addprop(name);
 p.NonCopyable = false;
 self.(name) = thing;
 
-v = evalin('base','whos');
+v = evalin('caller','whos');
 hash_these = false(length(v));
 for i = 1:length(v)
 	if strcmp(v(i).class,'cpplab')
@@ -75,12 +75,14 @@ for i = 1:length(v)
 		end
 	end
 end
+
+
 % ok, now ask these objects to hash
 for i = 1:length(v)
 	if hash_these(i)
 		if strcmp(v(i).name,'ans')
 			continue
 		end
-		evalin('base',[v(i).name '.md5hash;']);
+		evalin('caller',[v(i).name '.md5hash;']);
 	end
 end
