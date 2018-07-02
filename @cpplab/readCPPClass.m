@@ -21,17 +21,17 @@ lines = lineRead(cppfilename);
 % find the lines where the class is declared
 constructor_lines = [];
 for i = 1:length(lines)
-	if length(lines{i}) < lc + 1 
+	this_line = strtrim(lines{i});
+	if length(this_line) < lc + 1 
 		continue
 	end
-	if strcmp(strtrim(lines{i}(1:lc+1)),[class_name '('])
+	if strcmp(strtrim(this_line(1:lc+1)),[class_name '('])
 		constructor_lines = [constructor_lines; i];
 	end
 end
 
-if length(constructor_lines) > 1
-	error('This C++ class has more than one constructor; not supported.')
-end
+assert(length(constructor_lines) == 1, 'Expected exactly one constructor line; this was not what I found')
+
 
 constructor_line = lines{constructor_lines};
 
@@ -78,6 +78,9 @@ idx = constructor_lines;
 
 for i = idx:length(lines)
 	this_line = strtrim(lines{i});
+	if length(this_line) < 1
+		continue
+	end
 	if strcmp(this_line(1),'{')
 		constructor_start = i;
 		break
@@ -86,6 +89,9 @@ end
 
 for i = constructor_start:length(lines)
 	this_line = strtrim(lines{i});
+	if length(this_line) < 1
+		continue
+	end
 	if strcmp(this_line(1),'}')
 		constructor_stop = i;
 		break
