@@ -156,7 +156,7 @@ methods (Access = protected)
 	
 	function displayScalarObject(self)
 
-		url = ['matlab:' inputname(1) '.cpp_class_path'];
+		url = ['matlab:edit(' inputname(1) '.cpp_class_path)'];
 		fprintf(['' ' <a href="' url '">' self.cpp_class_name '</a> object with:\n\n'])
 
 		props = properties(self);
