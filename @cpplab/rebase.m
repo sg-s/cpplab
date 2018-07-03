@@ -13,6 +13,7 @@ function rebase(self)
 
 props = sort(properties(self));
 
+
 for i = 1:length(props)
 
 	if any(strfind(props{i},'cpp_class_path'))
@@ -24,7 +25,7 @@ for i = 1:length(props)
 			old_file_sep = '\';
 		end
 		if isempty(old_path)
-			return
+			continue
 		end
 		old_path = strsplit(old_path,old_file_sep);
 
@@ -52,6 +53,7 @@ for i = 1:length(props)
 
 	if length(self.(props{i})) > 1 && isa(self.(props{i}),'cpplab')
 		% vector of cpplab objects 
+
 		for j = 1:length(self.(props{i}))
 			rebase(self.(props{i})(j));
 		end
