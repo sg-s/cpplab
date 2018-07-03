@@ -103,7 +103,12 @@ end % end normal methods
 methods (Static)
 
 
-	function [resolved_p, hpp_files] = resolvePath(p)
+	function [resolved_p, hpp_files] = resolvePath(p, shallow)
+
+		if nargin < 2
+			shallow = false;
+		end
+
 		path_names = strsplit(path,pathsep);
 		resolved_p = [];
 		cache_path = [fileparts(fileparts(which(mfilename))) filesep 'paths.cpplab'];
@@ -123,6 +128,12 @@ methods (Static)
 
 		% first search the cache
 		idx = lineFind(hpp_files,p);
+
+		if shallow
+			assert(length(idx) == 1,'cpplab::could not resolve path')
+			resolved_p = hpp_files{idx};
+			return 
+		end
 
 		if isempty(idx)
 			% rebuild the cache
