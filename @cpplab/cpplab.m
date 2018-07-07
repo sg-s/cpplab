@@ -46,14 +46,14 @@ methods
 		end
 
 		
-		[prop_names, prop_types] = self.readCPPClass(hpp_path);
+		[prop_names, prop_types, default_values] = self.readCPPClass(hpp_path);
 		self.cpp_constructor_signature = prop_names;
 
 		% to do: figure out how to type dynamic props 
 		for i = 1:length(prop_names)
 			p = self.addprop(prop_names{i});
 			p.NonCopyable = false;
-			self.(prop_names{i}) = NaN;
+			self.(prop_names{i}) = default_values(i);
 		end
 
 		self.cpp_class_name = pathEnd(hpp_path);

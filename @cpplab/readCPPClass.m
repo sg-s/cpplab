@@ -9,7 +9,7 @@
 % reads a C++ file and finds the members of that class by
 % figuring out the constructor for that class
 
-function [class_members, input_types] = readCPPClass(self,cppfilename)
+function [class_members, input_types, default_values] = readCPPClass(self,cppfilename)
 
 % check that it exists 
 assert(exist(cppfilename,'file') == 2,'C++ file not found.')
@@ -109,12 +109,29 @@ for i = 1:length(member_variables)
 		if any(strfind(this_line,['=' input_variables{i} ';']))
 			this_member = this_line(1:strfind(this_line,'=')-1);
 			member_variables{i} = this_member;
-		else
+		end
 	end
 end
 
 class_members = member_variables;
 
 
+% now figure out the defaults
+default_values = NaN(length(class_members),1);
+
+
+for i = 1:length(class_members)
+	for j = 1:length(lines)
+		r1 = [input_types{i} '\s*' class_members{i} '(\s|;|=)'];
+		r2 = ['if(.+)isnan(.+)\(' class_members{i}  '\)(.+)' class_members{i} '(.+)=\s*\d+'];
+
+		if any(strfind(lines{j},'=')) && any(regexp(lines{j},r1))
+			default_values(i) = str2double(lines{j}(strfind(lines{j},'=')+1:strfind(lines{j},';')-1));
+
+		elseif any(regexp(lines{j},r2))
+			default_values(i) = str2double(lines{j}(strfind(lines{j},'=')+1:strfind(lines{j},';')-1));
+
+		end
+	end
 end
 
