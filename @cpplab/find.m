@@ -10,9 +10,19 @@
 function objects = find(self,pattern,prefix)
 
 if any(strfind(pattern,'*'))
-	% do a wilfcard search
+	% do a wildcard search
 
-	[~,~,~,real_names] = self.serialize;
+	if ~isempty(self.cpp_lab_real_names_hash) && ~isempty(self.cpp_lab_real_names_hash) && strcmp(self.cpp_lab_real_names_hash, self.hash)
+		real_names = self.cpp_lab_real_names;
+	else
+		[~,~,~,real_names] = self.serialize;
+		if ~isempty(self.hash)
+			self.cpp_lab_real_names_hash = self.hash;
+			self.cpp_lab_real_names = real_names;
+		end
+	end
+
+	
 
 	regStr = ['^',strrep(strrep(pattern,'?','.'),'*','.{0,}'),'$'];
 	starts = regexpi(real_names, regStr);

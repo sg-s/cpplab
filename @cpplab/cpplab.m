@@ -14,6 +14,8 @@ properties (SetAccess = private)
 	cpp_constructor_signature
 	cpp_class_parent
 	cpp_child_functions
+	cpp_lab_real_names
+	cpp_lab_real_names_hash
 	hidden_props
 end % end props
 
