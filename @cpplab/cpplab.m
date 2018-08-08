@@ -4,7 +4,10 @@
 % | (_|_   _|_   _| | | (_| | |_) |
 %  \___||_|   |_|   |_|\__,_|_.__/ 
 %
-%
+% cpplab
+% cpplab is a MATLAB class that allows you to bind
+% classes and types defined in C++ code to bonafide
+% MATLAB objects
 
 classdef  cpplab < dynamicprops  & matlab.mixin.CustomDisplay
 
@@ -26,6 +29,20 @@ end
 
 
 methods
+
+	% here, we are overloading the subscript assignation
+	% method built in to matlab to strongly type
+	% things that go into the cpplab tree 
+	function self = subsasgn(self, S, value)
+		assert(isscalar(value),['Error assigning value to ' strjoin({S.subs},'.') , ' :: value must be a scalar  '])
+		type_ok = isa(value,'double') || isa(value,'cpplab') || isa(value,'function_handle');
+		assert(type_ok, ['Error assigning value to ' strjoin({S.subs},'.') '  :: value is of wrong type'])
+		self = builtin('subsasgn',self,S,value);
+	end
+		
+
+
+
 	function self = cpplab(hpp_path, varargin)
 
 		if nargin == 0
