@@ -35,7 +35,7 @@ methods
 	% things that go into the cpplab tree 
 	function self = subsasgn(self, S, value)
 		assert(isscalar(value),['Error assigning value to ' strjoin({S.subs},'.') , ' :: value must be a scalar  '])
-		type_ok = isa(value,'double') || isa(value,'cpplab') || isa(value,'function_handle');
+		type_ok = isa(value,'double') || isa(value,'cpplab') || isa(value,'function_handle') || isa(value, 'logical');
 		assert(type_ok, ['Error assigning value to ' strjoin({S.subs},'.') '  :: value is of wrong type'])
 		self = builtin('subsasgn',self,S,value);
 	end
