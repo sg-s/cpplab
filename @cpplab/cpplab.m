@@ -100,7 +100,8 @@ methods
 
 
 		% validate and accept options
-		if iseven(length(varargin))
+		lv = length(varargin);
+		if round(lv/2)*2 == lv % iseven(lv)
 
 			% half of them have to be char
 

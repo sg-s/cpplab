@@ -44,7 +44,9 @@ otherwise
 
 	end
 
-	if iseven(length(varargin))
+
+	lv = length(varargin);
+	if round(lv/2)*2 == lv % iseven (lv)
 		name = varargin{1};
 		hpp_path = varargin{2};
 		varargin(1:2) = [];
