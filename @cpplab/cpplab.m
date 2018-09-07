@@ -141,6 +141,8 @@ end % end normal methods
 methods (Static)
 
 
+	varargout = search(pattern);
+
 	function [resolved_p, hpp_files] = resolvePath(p, shallow)
 
 		if nargin < 2
