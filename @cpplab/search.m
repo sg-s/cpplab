@@ -9,12 +9,14 @@
 function varargout = search(pattern)
 
 files = strsplit(fileread('paths.cpplab'),'\n')';
- files(cellfun(@isempty,files)) = [];
+files(cellfun(@isempty,files)) = [];
  
 if strcmp(pattern,'') | strcmp(pattern,'*')
 	objects = files;
 else
 
+	pattern = strrep(pattern,'/','\/');
+	pattern = strrep(pattern,'+','\+');
 
 	starts = regexpi(files, pattern);
 	iMatch = ~cellfun(@isempty, starts);
@@ -22,6 +24,11 @@ else
 
 	objects = files(idx);
 
+end
+
+if length(objects) == 0
+	disp('No objects found')
+	return
 end
 
 common_stub = objects{1}(all(~diff(char(objects(:)))));
