@@ -135,13 +135,54 @@ methods
 	end
 
 
+
+
 end % end normal methods
 
 
 methods (Static)
 
 
+
+
 	varargout = search(pattern);
+
+
+	function rebuildCache(path_names)
+
+
+		if nargin == 0
+			path_names = strsplit(path,pathsep);
+		else
+			assert(iscell(path_names),'Input must be a cell array');
+
+			% check that these path_names exist
+			for i = 1:length(path_names)
+				assert(exist(path_names{i},'dir') == 7,[path_names{i} ' not found'])
+				temp = dir(path_names{i});
+				path_names{i} = temp(1).folder;
+			end
+		end
+
+		
+
+		cache_path = [fileparts(fileparts(which(mfilename))) filesep 'paths.cpplab'];
+
+		% rebuild the cache
+		hpp_files = {};
+		for i = 1:length(path_names)
+			if any(strfind(path_names{i},matlabroot))
+				continue
+			end
+			allfiles = getAllFiles(path_names{i});
+			for j = 1:length(allfiles)
+				if strcmp(allfiles{j}(end-3:end),'.hpp')
+					hpp_files{end+1} = allfiles{j};
+				end
+			end
+		end
+		lineWrite(cache_path,hpp_files);
+	end
 
 	function [resolved_p, hpp_files] = resolvePath(p, shallow)
 
@@ -149,7 +190,7 @@ methods (Static)
 			shallow = false;
 		end
 
-		path_names = strsplit(path,pathsep);
+		
 		resolved_p = [];
 		cache_path = [fileparts(fileparts(which(mfilename))) filesep 'paths.cpplab'];
 		if exist(cache_path) == 2
@@ -176,20 +217,9 @@ methods (Static)
 		end
 
 		if isempty(idx)
-			% rebuild the cache
-			hpp_files = {};
-			for i = 1:length(path_names)
-				if any(strfind(path_names{i},matlabroot))
-					continue
-				end
-				allfiles = getAllFiles(path_names{i});
-				for j = 1:length(allfiles)
-					if strcmp(allfiles{j}(end-3:end),'.hpp')
-						hpp_files{end+1} = allfiles{j};
-					end
-				end
-			end
-			lineWrite(cache_path,hpp_files);
+			
+			cpplab.rebuildCache();
+
 			idx = lineFind(hpp_files,p);
 		end
 

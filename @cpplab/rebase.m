@@ -9,8 +9,6 @@
 
 function rebase(self)
 
-
-
 props = sort(properties(self));
 
 
@@ -43,7 +41,7 @@ for i = 1:length(props)
 			end
 			
 		end
-		disp([strjoin(old_path,old_file_sep) '->' new_path ])
+		% disp([strjoin(old_path,old_file_sep) '->' new_path ])
 		self.cpp_class_path = new_path;
 
 
