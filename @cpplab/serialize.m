@@ -18,6 +18,27 @@ else
 
 end
 
+% if ~isempty(self.cpp_lab_real_names_hash) && ~isempty(self.cpp_lab_real_names_hash) && strcmp(self.cpp_lab_real_names_hash, self.hash)
+	
+
+% 	values = NaN(length(self.cpp_lab_real_names),1);
+% 	for i = length(self.cpp_lab_real_names):-1:1
+% 		%values(i) = self.get(self.cpp_lab_real_names{i});
+
+
+% 		% yes, there an ugly eval here, but this
+% 		% is the fastest way i know of of doing this
+% 		% everything else (using .get(), etc ) is much slower
+% 		eval(['values(i) = self.' self.cpp_lab_real_names{i} ';'])
+% 	end
+
+% 	is_relational = self.cpp_lab_is_relational;
+% 	names = self.cpp_lab_names;
+% 	real_names = self.cpp_lab_real_names;
+% 	return
+
+% end
+
 props = sort(properties(self));
 names = {};
 real_names = {};
@@ -72,3 +93,10 @@ for i = 1:length(props)
 	end
 
 end
+
+% if ~isempty(self.hash)
+% 	self.cpp_lab_real_names_hash = self.hash;
+% 	self.cpp_lab_real_names = real_names;
+% 	self.cpp_lab_names = names;
+% 	self.cpp_lab_is_relational = is_relational;
+% end

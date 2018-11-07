@@ -18,7 +18,9 @@ properties (SetAccess = private)
 	cpp_class_parent
 	cpp_child_functions
 	cpp_lab_real_names
+	cpp_lab_names
 	cpp_lab_real_names_hash
+	cpp_lab_is_relational
 	hidden_props
 end % end props
 
@@ -48,13 +50,16 @@ methods
 		else
 			% derived class, but we may be indexing into a cpplab object
 			if  strcmp(class(subsref(self,S(1:z-1))),'cpplab')
-				assert(isscalar(value),['Error assigning value to ' strjoin({S(1:z).subs},'.') , ' :: value must be a scalar  '])
+
+
+				assert(isscalar(value),'Error assigning value. Value must be a scalar ')
 				type_ok = isa(value,'double') || isa(value,'cpplab') || isa(value,'function_handle');
 
 			end
 		end
 		
-		assert(type_ok, ['Error assigning value to ' strjoin({S(1:z).subs},'.') '  :: value is of wrong type'])
+
+		assert(type_ok,'Error assigning value. Value must be a scalar ')
 		self = builtin('subsasgn',self,S,value);
 	end
 		

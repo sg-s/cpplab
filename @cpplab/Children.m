@@ -8,21 +8,15 @@
 % children are also cpplab objects
 
 function children = Children(self)
-children = {};
+
 props = sort(properties(self));
+is_child = false(length(props),1);
+children = props;
 for i = 1:length(props)
 
-	if any( strfind(props{i},'cpp_'))
-		continue
-	end
-
-	if any( strfind(props{i},'hash'))
-		continue
-	end
-
-
 	if isa(self.(props{i}),'cpplab')
-		children{end+1} = props{i};
+		is_child(i) = true;
 	end
-
 end
+
+children = children(is_child);
