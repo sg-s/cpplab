@@ -60,6 +60,12 @@ methods
 		
 
 		assert(type_ok,'Error assigning value. Value must be a scalar ')
+
+		if isa(subsref(self,S),'cpplab')
+			temp = subsref(self,S);
+			error(['You cannot overwrite an object of type "' temp.cpp_class_name '" with a scalar'])
+		end
+
 		self = builtin('subsasgn',self,S,value);
 	end
 		
