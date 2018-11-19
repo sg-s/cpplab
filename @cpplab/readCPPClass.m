@@ -120,14 +120,20 @@ class_members = member_variables;
 default_values = NaN(length(class_members),1);
 
 for i = 1:length(class_members)
-	for j = 1:length(lines)
-		r1 = [input_types{i} '\s*' class_members{i} '(\s|;|=)'];
-		r2 = ['if(.+)isnan(.+)\(' class_members{i}  '\)(.+)' class_members{i} '(.+)=\s*(\-+)\d+'];
 
+	r1 = [input_types{i} '\s*' class_members{i} '(\s|;|=)'];
+	r2 = ['if(.+)isnan(.+)\(' class_members{i}  '\)(.+)' class_members{i} '(.+)=\s*(\-+)\d+'];
+	r3 = ['if(.+)isnan(.+)\(' class_members{i}  '\)(.+)' class_members{i} '(.+)=\s*\d+'];
+
+
+	for j = 1:length(lines)
+		
 		if any(strfind(lines{j},'=')) && any(regexp(lines{j},r1))
 			default_values(i) = str2double(lines{j}(strfind(lines{j},'=')+1:strfind(lines{j},';')-1));
 
 		elseif any(regexp(lines{j},r2))
+			default_values(i) = str2double(lines{j}(strfind(lines{j},'=')+1:strfind(lines{j},';')-1));
+		elseif any(regexp(lines{j},r3))
 			default_values(i) = str2double(lines{j}(strfind(lines{j},'=')+1:strfind(lines{j},';')-1));
 
 		end
