@@ -84,30 +84,38 @@ methods
 		end
 
 		% resolve the path
-		if exist(hpp_path,'file') == 2
-			% all good
-		else
+		if exist(hpp_path,'file') ~= 2
 			% search in path 
 			hpp_path = cpplab.resolvePath(hpp_path);
 		end
 
-		
-		[prop_names, prop_types, default_values] = self.readCPPClass(hpp_path);
-		self.cpp_constructor_signature = prop_names;
+		self.hash = GetMD5(hpp_path,'File');
 
-		% to do: figure out how to type dynamic props 
-		for i = 1:length(prop_names)
-			p = self.addprop(prop_names{i});
-			p.NonCopyable = false;
-			self.(prop_names{i}) = default_values(i);
+		cache_name = [fileparts(fileparts(which(mfilename))) filesep 'cache' filesep self.hash '.cpplab'];
+
+		if exist(cache_name,'file') == 2
+			% already cached. load that. 
+			load(cache_name,'-mat');
+		else
+			% cache miss
+			[prop_names, prop_types, default_values] = self.readCPPClass(hpp_path);
+			self.cpp_constructor_signature = prop_names;
+
+			% to do: figure out how to type dynamic props 
+			for i = 1:length(prop_names)
+				p = self.addprop(prop_names{i});
+				p.NonCopyable = false;
+				self.(prop_names{i}) = default_values(i);
+			end
+
+			self.cpp_class_name = pathEnd(hpp_path);
+			self.cpp_class_path = hpp_path;
+
+			% read child functions of this class 
+			self.readChildFunctions();
+
+			save(cache_name,'self','prop_names','-v7.3','-nocompression');
 		end
-
-		self.cpp_class_name = pathEnd(hpp_path);
-		self.cpp_class_path = hpp_path;
-
-
-		% read child functions of this class 
-		self.readChildFunctions();
 
 
 		% validate and accept options
@@ -135,9 +143,6 @@ methods
 			error('Inputs need to be name value pairs')
 		end
 
-		self.md5hash;
-
-
 	end % end constructor
 
 
@@ -153,94 +158,10 @@ end % end normal methods
 
 methods (Static)
 
-
-
-
 	varargout = search(pattern);
+	rebuildCache(path_names)
+	[resolved_p, hpp_files] = resolvePath(p, shallow)
 
-
-	function rebuildCache(path_names)
-
-
-		if nargin == 0
-			path_names = strsplit(path,pathsep);
-		else
-			assert(iscell(path_names),'Input must be a cell array');
-
-			% check that these path_names exist
-			for i = 1:length(path_names)
-				assert(exist(path_names{i},'dir') == 7,[path_names{i} ' not found'])
-				temp = dir(path_names{i});
-				path_names{i} = temp(1).folder;
-			end
-		end
-
-		
-
-		cache_path = [fileparts(fileparts(which(mfilename))) filesep 'paths.cpplab'];
-
-		% rebuild the cache
-		hpp_files = {};
-		for i = 1:length(path_names)
-			if any(strfind(path_names{i},matlabroot))
-				continue
-			end
-			allfiles = getAllFiles(path_names{i});
-			for j = 1:length(allfiles)
-				if strcmp(allfiles{j}(end-3:end),'.hpp')
-					hpp_files{end+1} = allfiles{j};
-				end
-			end
-		end
-		lineWrite(cache_path,hpp_files);
-	end
-
-	function [resolved_p, hpp_files] = resolvePath(p, shallow)
-
-		if nargin < 2
-			shallow = false;
-		end
-
-		
-		resolved_p = [];
-		cache_path = [fileparts(fileparts(which(mfilename))) filesep 'paths.cpplab'];
-		if exist(cache_path) == 2
-			hpp_files = lineRead(cache_path);
-		else
-			hpp_files = {};
-		end
-
-		if nargout == 2
-			return
-		end
-
-		if ispc
-			p = strrep(p,'/','\');
-		end
-
-		% first search the cache
-		idx = lineFind(hpp_files,p);
-
-		if shallow
-			assert(length(idx) == 1,'cpplab::could not resolve path')
-			resolved_p = hpp_files{idx};
-			return 
-		end
-
-		if isempty(idx)
-			
-			cpplab.rebuildCache();
-
-			idx = lineFind(hpp_files,p);
-		end
-
-		if length(idx) > 1
-			idx = idx(1);
-		end
-		assert(length(idx) == 1,'cpplab::could not resolve path')
-		resolved_p = hpp_files{idx};
-
-	end
 end % end static methods
 
 
