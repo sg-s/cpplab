@@ -4,3 +4,4 @@
 *.pyc
 *.asv
 *sublime-workspace
+*.gitignore

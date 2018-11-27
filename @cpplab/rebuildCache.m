@@ -35,10 +35,7 @@ lineWrite(cache_path,hpp_files);
 
 % nuke the cache of saved cpplab files
 dir_name = [fileparts(fileparts(which(mfilename))) filesep 'cache'];
-allfiles=dir(dir_name);
-for i = 1:length(allfiles)
-	if strcmp(allfiles(i).name(1),'.')
-		continue
-	end
-	delete([allfiles(i).folder filesep allfiles(i).name]);
+if exist(dir_name,'file') == 7
+	rmdir(dir_name,'s')
 end
+mkdir(dir_name)
