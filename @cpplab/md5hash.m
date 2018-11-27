@@ -15,7 +15,6 @@ catch
 	GetMD5;
 end
 
-
 % if this is somehow a vector of cpplab objects,
 % run it on a loop
 if length(self) > 1

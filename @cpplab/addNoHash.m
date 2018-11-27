@@ -63,4 +63,7 @@ end
 p = self.addprop(name);
 p.NonCopyable = false;
 self.(name) = thing;
+p.Hidden = false;
+self.(name).dynamic_prop_handle = p;
 
+self.(name).parent = self;

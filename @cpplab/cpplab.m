@@ -24,6 +24,11 @@ properties (SetAccess = private)
 	hidden_props
 end % end props
 
+properties (Access = private)
+	dynamic_prop_handle
+	parent
+end
+
 properties
 	hash
 	skip_hash@logical = false;
@@ -32,45 +37,7 @@ end
 
 methods
 
-	% here, we are overloading the subscript assignation
-	% method built in to matlab to strongly type
-	% things that go into the cpplab tree 
-	function self = subsasgn(self, S, value)
-
-		type_ok = true;
-
-		% figure out the lowest dot notation level
-		z = find(strcmp({S.type},'.'),1,'last');
-		if z == 1 & strcmp(class(self),'cpplab')
-			type_ok = isa(value,'double') || isa(value,'cpplab') || isa(value,'function_handle');
-			assert(isscalar(value),['Error assigning value to ' strjoin({S(1:z).subs},'.') , ' :: value must be a scalar  '])
-		elseif z == 1
-			% self is of some dervied class, so anything goes
-			type_ok = true;
-		else
-			% derived class, but we may be indexing into a cpplab object
-			if  strcmp(class(subsref(self,S(1:z-1))),'cpplab')
-
-
-				assert(isscalar(value),'Error assigning value. Value must be a scalar ')
-				type_ok = isa(value,'double') || isa(value,'cpplab') || isa(value,'function_handle');
-
-			end
-		end
-		
-
-		assert(type_ok,'Error assigning value. Value must be a scalar ')
-
-		if isa(subsref(self,S),'cpplab')
-			temp = subsref(self,S);
-			error(['You cannot overwrite an object of type "' temp.cpp_class_name '" with a scalar'])
-		end
-
-		self = builtin('subsasgn',self,S,value);
-	end
-		
-
-
+	
 
 	function self = cpplab(hpp_path, varargin)
 
@@ -168,6 +135,34 @@ methods (Static)
 	rebuildCache(path_names)
 	[resolved_p, hpp_files] = resolvePath(p, shallow)
 
+
+	function hashAllObjects()
+		v = evalin('caller','whos');
+		hash_these = false(length(v));
+		for i = 1:length(v)
+			if strcmp(v(i).class,'cpplab')
+				hash_these(i) = true;
+			end
+			S = superclasses(v(i).class);
+			if ~isempty(S)
+				if any(strcmp(S,'cpplab'))
+					hash_these(i) = true;
+				end
+			end
+		end
+
+		% ok, now ask these objects to hash
+		for i = 1:length(v)
+			if hash_these(i)
+				if strcmp(v(i).name,'ans')
+					continue
+				end
+				evalin('caller',[v(i).name '.md5hash;']);
+			end
+		end
+	end
+
+
 end % end static methods
 
 
@@ -175,8 +170,10 @@ methods (Access = protected)
 	
 	function displayScalarObject(self)
 
+		h = self.hash;
+
 		url = ['matlab:edit(' inputname(1) '.cpp_class_path)'];
-		fprintf(['' ' <a href="' url '">' self.cpp_class_name '</a> object with:\n\n'])
+		fprintf(['' ' <a href="' url '">' self.cpp_class_name '</a> object (' h(1:7) ') with:\n\n'])
 
 		props = properties(self);
 		max_len = 0;
@@ -193,6 +190,9 @@ methods (Access = protected)
 				continue	
 			elseif strcmp(props{i},'hidden_props')
 				continue
+			elseif strcmp(props{i},'dynamic_prop_handle')
+				continue
+			
 			end
 			disp_string = ['  ' props{i} ' : '];
 			if length(props{i}) < max_len
@@ -204,8 +204,7 @@ methods (Access = protected)
 				if isnumeric(self.(props{i})) && ~strcmp(props{i},'skip_hash')
 					disp_string = [disp_string mat2str(self.(props{i}))];
 				elseif strcmp(props{i},'hash')
-					h = (self.(props{i}));
-					disp_string = [disp_string h(1:7)];
+					continue
 				elseif strcmp(props{i},'skip_hash')
 					continue
 				else
