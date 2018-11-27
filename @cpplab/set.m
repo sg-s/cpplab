@@ -11,6 +11,9 @@ if iscell(thing)
 	if length(value) == 1
 		value = repmat(value,length(thing),1);
 	end
+
+	assert(length(value) == length(thing),'[cpplab::set] Lengths of values does not match the lengths of parameters being updated.')
+
 	for i = 1:length(thing)
 		self.set(thing{i},value(i))
 	end
