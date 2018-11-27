@@ -31,7 +31,8 @@ if length(objects) == 0
 	return
 end
 
-common_stub = objects{1}(all(~diff(char(objects(:)))));
+idx = all(~diff(char(objects(:))));
+common_stub = objects{1}(1:find(~idx,1,'first')-1);
 
 for i = 1:length(objects)
 	objects{i} = strrep(objects{i},common_stub,'');
