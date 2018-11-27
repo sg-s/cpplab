@@ -6,7 +6,12 @@
 %
 %
 % generic method that adds something as a child to this object
-function self = add(self,varargin)
+function add(self,varargin)
 
-self = addNoHash(self,varargin{:});
+
+
+addNoHash(self,varargin{:});
+
+
+% and ask the source to hash
 self.hashSource();

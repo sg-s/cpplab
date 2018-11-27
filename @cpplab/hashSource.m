@@ -3,8 +3,19 @@
 
 function hashSource(self)
 
+if length(self) > 1
+	for i = 1:length(self)
+		self(i).hashSource;
+	end
+	return
+end
+
+
+if ~isempty(self.Children)
+	self.shallowHash;
+end
+
 if isempty(self.parent)
-	self.md5hash;
 else
 	hashSource(self.parent);
 end

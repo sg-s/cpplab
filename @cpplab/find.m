@@ -59,6 +59,8 @@ for i = 1:length(c)
 
 		end
 
+	elseif  length(self.(c{i})) == 0
+		% empty, skip
 	else
 		this_class = self.(c{i}).cpp_class_name;
 		this_parent = self.(c{i}).cpp_class_parent;
