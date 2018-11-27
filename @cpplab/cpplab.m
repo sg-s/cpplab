@@ -114,6 +114,12 @@ methods
 			% read child functions of this class 
 			self.readChildFunctions();
 
+
+			dir_name = [fileparts(fileparts(which(mfilename))) filesep 'cache'];
+			if exist(dir_name,'file') ~= 7
+				mkdir(dir_name)
+			end
+
 			save(cache_name,'self','prop_names','-v7.3','-nocompression');
 		end
 
