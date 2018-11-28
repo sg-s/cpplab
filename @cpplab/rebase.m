@@ -41,7 +41,11 @@ for i = 1:length(props)
 			end
 			
 		end
-		% disp([strjoin(old_path,old_file_sep) '->' new_path ])
+		%disp([strjoin(old_path,old_file_sep) '->' new_path ])
+
+		% verify that the hash of the new C++ file matches
+		assert(strcmp(self.cpp_hash,GetMD5(new_path,'File')),'Hashes do not match! This means the C++ file that corresponds to this object cannot be identified or located.')
+
 		self.cpp_class_path = new_path;
 
 
