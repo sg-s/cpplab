@@ -170,6 +170,8 @@ methods (Access = protected)
 				continue	
 			elseif strcmp(props{i},'hidden_props')
 				continue
+			elseif strcmp(props{i},'Children')
+				continue
 			elseif strcmp(props{i},'dynamic_prop_handle')
 				continue
 			
