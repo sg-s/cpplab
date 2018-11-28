@@ -22,6 +22,9 @@ properties (SetAccess = private)
 	cpp_lab_real_names_hash
 	cpp_lab_is_relational
 	hidden_props
+	
+	hash
+	cpp_hash
 end % end props
 
 properties (Access = private)
@@ -30,7 +33,7 @@ properties (Access = private)
 end
 
 properties
-	hash
+	Children
 	skip_hash@logical = false;
 end
 
@@ -56,7 +59,8 @@ methods
 			hpp_path = cpplab.resolvePath(hpp_path);
 		end
 
-		self.hash = GetMD5(hpp_path,'File');
+		self.cpp_hash = GetMD5(hpp_path,'File');
+		self.hash = self.cpp_hash;
 
 		cache_name = [fileparts(fileparts(which(mfilename))) filesep 'cache' filesep self.hash '.cpplab'];
 
@@ -136,33 +140,6 @@ methods (Static)
 	[resolved_p, hpp_files] = resolvePath(p, shallow)
 
 
-	function hashAllObjects()
-		v = evalin('caller','whos');
-		hash_these = false(length(v));
-		for i = 1:length(v)
-			if strcmp(v(i).class,'cpplab')
-				hash_these(i) = true;
-			end
-			S = superclasses(v(i).class);
-			if ~isempty(S)
-				if any(strcmp(S,'cpplab'))
-					hash_these(i) = true;
-				end
-			end
-		end
-
-		% ok, now ask these objects to hash
-		for i = 1:length(v)
-			if hash_these(i)
-				if strcmp(v(i).name,'ans')
-					continue
-				end
-				evalin('caller',[v(i).name '.md5hash;']);
-			end
-		end
-	end
-
-
 end % end static methods
 
 
@@ -170,7 +147,10 @@ methods (Access = protected)
 	
 	function displayScalarObject(self)
 
-		h = self.hash;
+		h = self.cpp_hash;
+		if isempty(self.cpp_class_name)
+			return
+		end
 
 		url = ['matlab:edit(' inputname(1) '.cpp_class_path)'];
 		fprintf(['' ' <a href="' url '">' self.cpp_class_name '</a> object (' h(1:7) ') with:\n\n'])
@@ -189,6 +169,8 @@ methods (Access = protected)
 			if any(strfind(props{i},'cpp_'))
 				continue	
 			elseif strcmp(props{i},'hidden_props')
+				continue
+			elseif strcmp(props{i},'Children')
 				continue
 			elseif strcmp(props{i},'dynamic_prop_handle')
 				continue

@@ -6,7 +6,7 @@
 %
 %
 % generic method that adds something as a child to this object
-function self = addNoHash(self,varargin)
+function addNoHash(self,varargin)
 switch length(varargin)
 case 1
 
@@ -60,6 +60,10 @@ otherwise
 		name = thing.cpp_class_name;
 	end
 end
+
+
+% wire up connectors
+
 p = self.addprop(name);
 p.NonCopyable = false;
 self.(name) = thing;
@@ -67,3 +71,9 @@ p.Hidden = false;
 self.(name).dynamic_prop_handle = p;
 
 self.(name).parent = self;
+
+if isempty(self.Children)
+	self.Children = {name};
+else
+	self.Children = sort([self.Children name]);
+end
