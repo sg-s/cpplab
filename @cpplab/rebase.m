@@ -9,6 +9,12 @@
 
 function rebase(self)
 
+% check that GetMD5 has been compiled
+if exist('GetMD5','file') ~= 3
+	GetMD5;
+end
+
+
 props = sort(properties(self));
 
 
