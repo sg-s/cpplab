@@ -13,12 +13,14 @@ and build a tree of cpplab objects.
 
 Syntax
 
+```
 ParentObject.add(ChildObject)
 ParentObject.add(ChildObject,'name')
 ParentObject.add('path/to/ChildObject.hpp')
 ParentObject.add('path/to/ChildObject.hpp','name')
 ParentObject.add('path/to/ChildObject.hpp','name','Property',Value...)
 ParentObject.add('path/to/ChildObject.hpp','Property',Value...)
+```
 
 Description 
 
@@ -64,6 +66,10 @@ adds `ChildObject`, a `cpplab` object to `ParentObject`, another
 path specified, and is  automatically named with the 
 name of the C++ class it refers to, so you can access it using ParentObject.(ChildObject.cpp_class_name). In addition, the ChildObject is configured on-the-fly with the properties you specify before addition to ParentObject. 
 
+
+!!! info "See Also"
+    -> cpplab.addNoHash
+    -> cpplab.destroy
 
 %}
 

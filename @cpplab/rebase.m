@@ -1,11 +1,30 @@
-%                    _       _     
-%   ___  _     _    | | __ _| |__  
-%  / __|| |_ _| |_  | |/ _` | '_ \ 
-% | (_|_   _|_   _| | | (_| | |_) |
-%  \___||_|   |_|   |_|\__,_|_.__/ 
-% 
-% goes through the entire tree and re-writes
-% all cpp_class_paths
+%{ 
+                   _       _     
+  ___  _     _    | | __ _| |__  
+ / __|| |_ _| |_  | |/ _` | '_ \ 
+| (_|_   _|_   _| | | (_| | |_) |
+ \___||_|   |_|   |_|\__,_|_.__/ 
+
+
+# rebase
+
+**Syntax**
+
+```
+C.rebase
+```
+
+**Description**
+
+`rebase` traverses a nested cpplab object tree, and checks that the `cpp_class_path` of every cpplab object in the tree resolves correctly. If it doesn't, it calls `resolvePath` to identify and link to the correct C++ file wherever it may be on your computer. MD5 hashing is used to ensure that the correct C++ file is linked against. If no C++ file with the correct hash is found, an error is thrown. 
+
+You will need to call this method if you save a cpplab object to disk, move it to a different computer, and load it there. 
+
+!!! info "See Also"
+    -> cpplab.resolvePath
+    -> cpplab.search
+
+%}
 
 function rebase(self)
 

@@ -1,3 +1,25 @@
+%{ 
+                   _       _     
+  ___  _     _    | | __ _| |__  
+ / __|| |_ _| |_  | |/ _` | '_ \ 
+| (_|_   _|_   _| | | (_| | |_) |
+ \___||_|   |_|   |_|\__,_|_.__/ 
+
+
+# readChildFunctions
+
+**Syntax**
+
+```
+child_functions = C.readChildFunctions
+```
+
+**Description**
+
+Do not use this method. 
+
+%}
+
 
 function child_functions = readChildFunctions(self)
 

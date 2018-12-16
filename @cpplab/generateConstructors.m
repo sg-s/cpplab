@@ -1,10 +1,26 @@
-%                    _       _     
-%   ___  _     _    | | __ _| |__  
-%  / __|| |_ _| |_  | |/ _` | '_ \ 
-% | (_|_   _|_   _| | | (_| | |_) |
-%  \___||_|   |_|   |_|\__,_|_.__/ 
-%
-%
+%{ 
+                   _       _     
+  ___  _     _    | | __ _| |__  
+ / __|| |_ _| |_  | |/ _` | '_ \ 
+| (_|_   _|_   _| | | (_| | |_) |
+ \___||_|   |_|   |_|\__,_|_.__/ 
+
+
+# generateConstructors
+
+**Syntax**
+
+```
+[constructors, cpp_class_parent, names] = C.generateConstructors(prefix)
+```
+
+**Description**
+
+Do not use this method. 
+
+%}
+
+
 function [constructors, cpp_class_parent, names] = generateConstructors(self, prefix)
 
 if nargin < 2

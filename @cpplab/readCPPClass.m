@@ -1,13 +1,25 @@
-%                    _       _     
-%   ___  _     _    | | __ _| |__  
-%  / __|| |_ _| |_  | |/ _` | '_ \ 
-% | (_|_   _|_   _| | | (_| | |_) |
-%  \___||_|   |_|   |_|\__,_|_.__/ 
-%
-%
-% readCPPClass.m
-% reads a C++ file and finds the members of that class by
-% figuring out the constructor for that class
+%{ 
+                   _       _     
+  ___  _     _    | | __ _| |__  
+ / __|| |_ _| |_  | |/ _` | '_ \ 
+| (_|_   _|_   _| | | (_| | |_) |
+ \___||_|   |_|   |_|\__,_|_.__/ 
+
+
+# readCPPClass
+
+**Syntax**
+
+```
+ [class_members, input_types, default_values] = C.readCPPClass(cppfilename)
+
+```
+
+**Description**
+
+Do not use this method. 
+
+%}
 
 function [class_members, input_types, default_values] = readCPPClass(self,cppfilename)
 

@@ -1,11 +1,21 @@
-%                    _       _     
-%   ___  _     _    | | __ _| |__  
-%  / __|| |_ _| |_  | |/ _` | '_ \ 
-% | (_|_   _|_   _| | | (_| | |_) |
-%  \___||_|   |_|   |_|\__,_|_.__/ 
-%
-% replicates a cpplab object in the tree N times
-% with all children in it
+%{ 
+                   _       _     
+  ___  _     _    | | __ _| |__  
+ / __|| |_ _| |_  | |/ _` | '_ \ 
+| (_|_   _|_   _| | | (_| | |_) |
+ \___||_|   |_|   |_|\__,_|_.__/ 
+
+
+# replicate
+
+
+**Description**
+
+Do not use this method. 
+
+%}
+
+
 function replicate(self,thing,N)
 
 

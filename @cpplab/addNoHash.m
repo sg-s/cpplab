@@ -1,11 +1,22 @@
-%                    _       _     
-%   ___  _     _    | | __ _| |__  
-%  / __|| |_ _| |_  | |/ _` | '_ \ 
-% | (_|_   _|_   _| | | (_| | |_) |
-%  \___||_|   |_|   |_|\__,_|_.__/ 
-%
-%
-% generic method that adds something as a child to this object
+%{ 
+                   _       _     
+  ___  _     _    | | __ _| |__  
+ / __|| |_ _| |_  | |/ _` | '_ \ 
+| (_|_   _|_   _| | | (_| | |_) |
+ \___||_|   |_|   |_|\__,_|_.__/ 
+
+
+# addNoHash
+
+adds a cpplab object to another, but does not 
+update the hashes of the object being added to.
+Do not use this method, use `add()` instead. 
+
+!!! info "See Also"
+    -> cpplab.add
+
+%}
+
 function addNoHash(self,varargin)
 switch length(varargin)
 case 1

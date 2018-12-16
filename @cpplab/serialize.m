@@ -1,11 +1,38 @@
-%                    _       _     
-%   ___  _     _    | | __ _| |__  
-%  / __|| |_ _| |_  | |/ _` | '_ \ 
-% | (_|_   _|_   _| | | (_| | |_) |
-%  \___||_|   |_|   |_|\__,_|_.__/ 
-%
-% serializes an object so you can pass it easily
-% to a mexable C++ binary
+%{ 
+                   _       _     
+  ___  _     _    | | __ _| |__  
+ / __|| |_ _| |_  | |/ _` | '_ \ 
+| (_|_   _|_   _| | | (_| | |_) |
+ \___||_|   |_|   |_|\__,_|_.__/ 
+
+
+# serialize
+
+**Syntax**
+
+```
+values = C.serialize;
+[values, names] = C.serialize;
+[values, names, is_relational] = C.serialize;
+[values, names, is_relational, real_names] = C.serialize;
+```
+
+**Description**
+
+`serialize` is a method that traverses the cpplab object tree, collects the value of every parameter in every object and packs them into a vector. 
+
+- **`values = C.serialize`** returns a vector of all parameters in the nested cpplab object C. 
+- **`[values, names] = C.serialize`** also returns the names of all parameters. The order of names matches the order of values
+- **`[values, names, is_relational] = C.serialize`** also returns a logical vector that is the same length as the other two outputs. Each element in this vector is either true or false based on whether the parameter is a scalar value or a relational function handle. 
+- **`[values, names, is_relational, real_names] = C.serialize`** also returns a fourth cell vector which contains the real names of all parameters, that allows you to directly use it to reference those parameters. 
+
+!!! info "See Also"
+    -> cpplab.find
+    -> cpplab.deserialize
+    -> cpplab.get
+
+%}
+
 
 function [values, names, is_relational, real_names] = serialize(self, prefix, real_prefix)
 
@@ -18,26 +45,6 @@ else
 
 end
 
-% if ~isempty(self.cpp_lab_real_names_hash) && ~isempty(self.cpp_lab_real_names_hash) && strcmp(self.cpp_lab_real_names_hash, self.hash)
-	
-
-% 	values = NaN(length(self.cpp_lab_real_names),1);
-% 	for i = length(self.cpp_lab_real_names):-1:1
-% 		%values(i) = self.get(self.cpp_lab_real_names{i});
-
-
-% 		% yes, there an ugly eval here, but this
-% 		% is the fastest way i know of of doing this
-% 		% everything else (using .get(), etc ) is much slower
-% 		eval(['values(i) = self.' self.cpp_lab_real_names{i} ';'])
-% 	end
-
-% 	is_relational = self.cpp_lab_is_relational;
-% 	names = self.cpp_lab_names;
-% 	real_names = self.cpp_lab_real_names;
-% 	return
-
-% end
 
 props = sort(properties(self));
 names = {};
@@ -93,10 +100,3 @@ for i = 1:length(props)
 	end
 
 end
-
-% if ~isempty(self.hash)
-% 	self.cpp_lab_real_names_hash = self.hash;
-% 	self.cpp_lab_real_names = real_names;
-% 	self.cpp_lab_names = names;
-% 	self.cpp_lab_is_relational = is_relational;
-% end

@@ -1,12 +1,26 @@
-%                    _       _     
-%   ___  _     _    | | __ _| |__  
-%  / __|| |_ _| |_  | |/ _` | '_ \ 
-% | (_|_   _|_   _| | | (_| | |_) |
-%  \___||_|   |_|   |_|\__,_|_.__/ 
-%
-% reads all hashes from the tree
-% does not rehash anything
-% if hash is empty, it returns an empty char
+%{ 
+                   _       _     
+  ___  _     _    | | __ _| |__  
+ / __|| |_ _| |_  | |/ _` | '_ \ 
+| (_|_   _|_   _| | | (_| | |_) |
+ \___||_|   |_|   |_|\__,_|_.__/ 
+
+
+# getAllHashes
+
+**Syntax**
+
+```
+H = C.getAllHashes
+```
+
+**Description**
+
+Do not use this method. 
+
+%}
+
+
 function H = getAllHashes(self)
 
 H = {};

@@ -1,10 +1,35 @@
-%                    _       _     
-%   ___  _     _    | | __ _| |__  
-%  / __|| |_ _| |_  | |/ _` | '_ \ 
-% | (_|_   _|_   _| | | (_| | |_) |
-%  \___||_|   |_|   |_|\__,_|_.__/ 
-%
-% searches the paths.cpplab cache for C++ header files
+%{ 
+                   _       _     
+  ___  _     _    | | __ _| |__  
+ / __|| |_ _| |_  | |/ _` | '_ \ 
+| (_|_   _|_   _| | | (_| | |_) |
+ \___||_|   |_|   |_|\__,_|_.__/ 
+
+
+# search
+
+**Syntax**
+
+```
+cpplab.search('search_string')
+cpplab.search('*search*pattern*')
+objects = cpplab.search('*search*pattern*');
+```
+
+**Description**
+
+`search` is a static method that looks for C++ files that match certain criterion. 
+
+- **`cpplab.search('search_string')`** searches the `paths.cpplab` cache for C++ objects whose location contains `search_string`, and displays all objects that match this in the command prompt
+- **`cpplab.search('*search*pattern*')`** searches the `paths.cpplab` cache for C++ objects whose location contains the specified search pattern, allowing for wild cards, and displays all objects that match this in the command prompt. 
+- **`objects = cpplab.search('*search*pattern*');`** searches the `paths.cpplab` cache for C++ objects whose location contains the specified search pattern, allowing for wild cards, and returns them in a cell array. Nothing is written to STDOUT. 
+
+
+!!! info "See Also"
+    -> cpplab.find
+
+%}
+
 
 function varargout = search(pattern)
 
