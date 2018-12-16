@@ -27,8 +27,8 @@ multiple objects and parameters in a nested cpplab tree.
 
 
 !!! info "See Also"
-    -> cpplab.find
-    -> cpplab.get
+    ->cpplab.find
+    ->cpplab.get
 
 %}
 

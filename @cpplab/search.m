@@ -26,7 +26,7 @@ objects = cpplab.search('*search*pattern*');
 
 
 !!! info "See Also"
-    -> cpplab.find
+    ->cpplab.find
 
 %}
 

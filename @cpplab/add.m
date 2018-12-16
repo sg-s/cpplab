@@ -11,7 +11,7 @@
 The add method allows you to add cpplab objects to other cpplab objects
 and build a tree of cpplab objects. 
 
-Syntax
+**Syntax**
 
 ```
 ParentObject.add(ChildObject)
@@ -22,7 +22,7 @@ ParentObject.add('path/to/ChildObject.hpp','name','Property',Value...)
 ParentObject.add('path/to/ChildObject.hpp','Property',Value...)
 ```
 
-Description 
+**Description**
 
 * ParentObject.add(ChildObject)
 
@@ -68,8 +68,8 @@ name of the C++ class it refers to, so you can access it using ParentObject.(Chi
 
 
 !!! info "See Also"
-    -> cpplab.addNoHash
-    -> cpplab.destroy
+    ->cpplab.addNoHash
+    ->cpplab.destroy
 
 %}
 

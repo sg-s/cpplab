@@ -25,8 +25,8 @@ from nesting vectors when it expects scalars.
 
 
 !!! info "See Also"
-    -> cpplab.find
-    -> cpplab.get
+    ->cpplab.find
+    ->cpplab.get
 
 %}
 

@@ -24,8 +24,8 @@ This static method does two things:
 If you find that you are getting errors where cpplab complains it can't find certain files, a good first step is to run this method to rebuild the cache. 
 
 !!! info "See Also"
-    -> cpplab.resolvePath
-    -> cpplab.search
+    ->cpplab.resolvePath
+    ->cpplab.search
 
 %}
 

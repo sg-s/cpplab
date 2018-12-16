@@ -19,8 +19,8 @@ C.hashSource
 `hashSource` asks the parent of a cpplab object in a nested cpplab object tree to compute its hash. 
 
 !!! info "See Also"
-    -> cpplab.shallowHash
-    -> cpplab.addNoHash
+    ->cpplab.shallowHash
+    ->cpplab.addNoHash
 
 %}
 function hashSource(self)

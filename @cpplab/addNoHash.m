@@ -13,7 +13,7 @@ update the hashes of the object being added to.
 Do not use this method, use `add()` instead. 
 
 !!! info "See Also"
-    -> cpplab.add
+    ->cpplab.add
 
 %}
 

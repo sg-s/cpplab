@@ -27,9 +27,9 @@ values = C.serialize;
 - **`[values, names, is_relational, real_names] = C.serialize`** also returns a fourth cell vector which contains the real names of all parameters, that allows you to directly use it to reference those parameters. 
 
 !!! info "See Also"
-    -> cpplab.find
-    -> cpplab.deserialize
-    -> cpplab.get
+    ->cpplab.find
+    ->cpplab.deserialize
+    ->cpplab.get
 
 %}
 

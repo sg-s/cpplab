@@ -27,9 +27,9 @@ file_loc = cpplab.resolvePath('search_string')
 
 
 !!! info "See Also"
-    -> cpplab.add
-    -> cpplab.search
-    -> cpplab.find
+    ->cpplab.add
+    ->cpplab.search
+    ->cpplab.find
 
 %}
 

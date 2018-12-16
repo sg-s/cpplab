@@ -21,8 +21,8 @@ C.rebase
 You will need to call this method if you save a cpplab object to disk, move it to a different computer, and load it there. 
 
 !!! info "See Also"
-    -> cpplab.resolvePath
-    -> cpplab.search
+    ->cpplab.resolvePath
+    ->cpplab.search
 
 %}
 

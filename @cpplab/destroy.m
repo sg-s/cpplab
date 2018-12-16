@@ -16,10 +16,10 @@ ParentObject.ChildObject.destroy()
 
 **Description**
 
-removes a cpplab object that is contained within another and destroys it. This is the opposite of `cpplab.add()
+removes a cpplab object that is contained within another and destroys it. This is the opposite of `cpplab.add()`
 
 !!! See Also
-    -> cpplab.add
+    ->cpplab.add
 
 %}
 
