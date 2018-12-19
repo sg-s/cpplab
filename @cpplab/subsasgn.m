@@ -42,15 +42,19 @@ if z == 1 & strcmp(class(self),'cpplab')
 elseif z == 1
 	% self is of some dervied class, so anything goes
 	type_ok = true;
-else
+elseif  strcmp(class(subsref(self,S(1:z-1))),'cpplab') && ~isempty(value)
 	% derived class, but we may be indexing into a cpplab object
-	if  strcmp(class(subsref(self,S(1:z-1))),'cpplab')
+	
+	assert(isscalar(value),'Error assigning value. Value must be a scalar ')
+	type_ok = isa(value,'double') || isa(value,'cpplab') || isa(value,'function_handle');
 
+elseif  strcmp(class(subsref(self,S(1:z-1))),'cpplab') && isempty(value)
+	error('You cannot assign an empty vector a cpplab object. If you meant to remove this object from the tree, use the "destroy" method')
 
-		assert(isscalar(value),'Error assigning value. Value must be a scalar ')
-		type_ok = isa(value,'double') || isa(value,'cpplab') || isa(value,'function_handle');
-
-	end
+elseif isa(subsref(self,S(1:z-1)),'struct')
+	% assigning to a struct, so anything goes?
+	self = builtin('subsasgn',self,S,value);
+	return
 end
 
 
