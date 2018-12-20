@@ -6,7 +6,7 @@
  \___||_|   |_|   |_|\__,_|_.__/ 
 
 
-# add
+## add
 
 The add method allows you to add cpplab objects to other cpplab objects
 and build a tree of cpplab objects. 

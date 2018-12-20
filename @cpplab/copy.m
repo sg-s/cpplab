@@ -6,7 +6,7 @@
  \___||_|   |_|   |_|\__,_|_.__/ 
 
 
-# copy
+## copy
 
 makes a copy of a cpplab object
 
