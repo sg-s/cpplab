@@ -41,6 +41,8 @@ if length(self) > 1
 end
 
 
+H = cell(length(self.Children)+1);
+
 for i = length(self.Children):-1:1
 	if length(self.(self.Children{i})) == 1
 		H{i} = self.(self.Children{i}).hash;
@@ -53,7 +55,10 @@ for i = length(self.Children):-1:1
 end
 
 if isempty(self.cpp_hash)
-	H{end+1} = repmat('0',1,32);
+	H{end} = repmat('0',1,32);
+else
+	H{end} = self.cpp_hash;
 end
+
 
 self.hash = GetMD5([H{:}]);
