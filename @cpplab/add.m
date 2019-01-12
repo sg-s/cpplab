@@ -6,7 +6,7 @@
  \___||_|   |_|   |_|\__,_|_.__/ 
 
 
-## add
+### add
 
 The add method allows you to add cpplab objects to other cpplab objects
 and build a tree of cpplab objects. 
@@ -41,7 +41,7 @@ you can access it using `ParentObject.name`
 `cpplab` object. The ChildObject is created on the fly using the 
 path specified, and is assigned the name 'name' in the tree, so 
 you can access it using `ParentObject.name`. In addition, the ChildObject is configured on-the-fly with the properties you specify before addition to ParentObject. 
-- **`ParentObject.add('path/to/ChildObject.hpp','Property',Value...)` ** adds `ChildObject`, a `cpplab` object to `ParentObject`, another 
+- **`ParentObject.add('path/to/ChildObject.hpp','Property',Value...)`** adds `ChildObject`, a `cpplab` object to `ParentObject`, another 
 `cpplab` object. The ChildObject is created on the fly using the 
 path specified, and is  automatically named with the 
 name of the C++ class it refers to, so you can access it using ParentObject.(ChildObject.cpp_class_name). In addition, the ChildObject is configured on-the-fly with the properties you specify before addition to ParentObject. 

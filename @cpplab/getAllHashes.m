@@ -6,7 +6,7 @@
  \___||_|   |_|   |_|\__,_|_.__/ 
 
 
-## getAllHashes
+### getAllHashes
 
 **Syntax**
 

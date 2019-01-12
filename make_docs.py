@@ -9,7 +9,7 @@ import glob, os
 out_file = open('docs/reference/cpplab-methods.md','w')
 
 
-method_root = 'https://cpplab.readthedocs.io/en/master/reference/cpplab-methods/#';
+method_root = '#';
 
 for file in sorted(glob.glob("@cpplab/*.m")):
 
