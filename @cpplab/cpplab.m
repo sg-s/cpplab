@@ -47,6 +47,17 @@ methods
 
 	function self = cpplab(hpp_path, varargin)
 
+		% check that GetMd5 works and is installed
+		[~,~,ext]=fileparts(which('GetMD5'));
+		if ~strcmp(['.' mexext,],ext)
+			if strcmp(ext,'.m')
+				assert(exist('GetMD5.c') == 2,'Could not located GetMD5.c on the path')
+				InstallMex('GetMD5.c');
+			else
+				error('Could not find GetMD5 on the path.')
+			end
+		end
+
 		if nargin == 0
 			return
 		end
