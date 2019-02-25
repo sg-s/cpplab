@@ -26,7 +26,7 @@ function [class_members, input_types, default_values] = readCPPClass(self,cppfil
 % check that it exists 
 assert(exist(cppfilename,'file') == 2,'C++ file not found.')
 
-class_name = pathlib.ext(cppfilename);
+class_name = pathlib.name(cppfilename);
 lc = length(class_name);
 lines = filelib.read(cppfilename);
 

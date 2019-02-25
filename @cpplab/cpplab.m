@@ -93,7 +93,7 @@ methods
 				self.(prop_names{i}) = default_values(i);
 			end
 
-			self.cpp_class_name = pathlib.ext(hpp_path);
+			self.cpp_class_name = pathlib.name(hpp_path);
 			self.cpp_class_path = hpp_path;
 
 			% read child functions of this class 
