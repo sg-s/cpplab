@@ -16,8 +16,6 @@ TF = exist(object,thing)
 
 **Description**
 
-removes a cpplab object that is contained within another and destroys it. This is the opposite of `cpplab.add()`
-
 !!! warning
     Do not use this method. It will be removed in a future release.
 
