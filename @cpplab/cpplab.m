@@ -51,6 +51,7 @@ methods
 		[~,~,ext]=fileparts(which('mtools.crypto.md5hash'));
 		if ~strcmp(['.' mexext,],ext)
 			if strcmp(ext,'.m')
+				assert(exist('+mtools/+crypto/md5hash.c') == 2,'Could not locate mtools.crypto.md5hash.c on the path')
 				InstallMex('mtools.crypto.md5hash.c');
 			else
 				error('Could not find mtools.crypto.md5hash on the path.')
