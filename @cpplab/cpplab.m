@@ -1,9 +1,9 @@
-%{ 
-                   _       _     
-  ___  _     _    | | __ _| |__  
- / __|| |_ _| |_  | |/ _` | '_ \ 
+%{
+                   _       _
+  ___  _     _    | | __ _| |__
+ / __|| |_ _| |_  | |/ _` | '_ \
 | (_|_   _|_   _| | | (_| | |_) |
- \___||_|   |_|   |_|\__,_|_.__/ 
+ \___||_|   |_|   |_|\__,_|_.__/
 
 a simple class to link MATLAB to C++
 Srinivas Gorur-Shandilya
@@ -25,7 +25,7 @@ properties (SetAccess = private)
 	cpp_lab_real_names_hash
 	cpp_lab_is_relational
 	hidden_props
-	
+
 	hash
 	cpp_hash
 end % end props
@@ -43,7 +43,7 @@ end
 
 methods
 
-	
+
 
 	function self = cpplab(hpp_path, varargin)
 
@@ -51,7 +51,6 @@ methods
 		[~,~,ext]=fileparts(which('mtools.crypto.md5hash'));
 		if ~strcmp(['.' mexext,],ext)
 			if strcmp(ext,'.m')
-				assert(exist('mtools.crypto.md5hash.c') == 2,'Could not located mtools.crypto.md5hash.c on the path')
 				InstallMex('mtools.crypto.md5hash.c');
 			else
 				error('Could not find mtools.crypto.md5hash on the path.')
@@ -69,7 +68,7 @@ methods
 
 		% resolve the path
 		if exist(hpp_path,'file') ~= 2
-			% search in path 
+			% search in path
 			hpp_path = cpplab.resolvePath(hpp_path);
 		end
 
@@ -79,14 +78,14 @@ methods
 		cache_name = [fileparts(fileparts(which(mfilename))) filesep 'cache' filesep self.hash '.cpplab'];
 
 		if exist(cache_name,'file') == 2
-			% already cached. load that. 
+			% already cached. load that.
 			load(cache_name,'-mat');
 		else
 			% cache miss
 			[prop_names, prop_types, default_values] = self.readCPPClass(hpp_path);
 			self.cpp_constructor_signature = prop_names;
 
-			% to do: figure out how to type dynamic props 
+			% to do: figure out how to type dynamic props
 			for i = 1:length(prop_names)
 				p = self.addprop(prop_names{i});
 				p.NonCopyable = false;
@@ -96,7 +95,7 @@ methods
 			self.cpp_class_name = pathEnd(hpp_path);
 			self.cpp_class_path = hpp_path;
 
-			% read child functions of this class 
+			% read child functions of this class
 			self.readChildFunctions();
 
 
@@ -118,7 +117,7 @@ methods
 			for ii = 1:2:length(varargin)-1
 				temp = varargin{ii};
 		    	if ischar(temp)
-			    	if ~any(find(strcmp(temp,prop_names))) 
+			    	if ~any(find(strcmp(temp,prop_names)))
 			    		disp(['Unknown option: ' temp])
 			    		disp('The allowed options are:')
 			    		disp(prop_names)
@@ -158,7 +157,7 @@ end % end static methods
 
 
 methods (Access = protected)
-	
+
 	function displayScalarObject(self)
 
 		h = self.cpp_hash;
@@ -174,21 +173,21 @@ methods (Access = protected)
 		for i = 1:length(props)
 			if any(strfind(props{i},'cpp_'))
 				continue
-				
+
 			end
 			max_len = max([length(props{i}) max_len]);
 		end
 
 		for i = 1:length(props)
 			if any(strfind(props{i},'cpp_'))
-				continue	
+				continue
 			elseif strcmp(props{i},'hidden_props')
 				continue
 			elseif strcmp(props{i},'Children')
 				continue
 			elseif strcmp(props{i},'dynamic_prop_handle')
 				continue
-			
+
 			end
 			disp_string = ['  ' props{i} ' : '];
 			if length(props{i}) < max_len
@@ -212,7 +211,7 @@ methods (Access = protected)
 
 		for i = 1:length(props)
 			if any(strfind(props{i},'cpp_'))
-				continue	
+				continue
 			end
 			disp_string = ['  ' props{i} ' : '];
 			if length(props{i}) < max_len
@@ -225,7 +224,7 @@ methods (Access = protected)
 				disp(disp_string)
 				fprintf(['\b<a href="' url '">' self.(props{i}).cpp_class_name '</a> object\n'])
 			else
-				
+
 			end
 		end
 
