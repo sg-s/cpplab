@@ -61,4 +61,4 @@ else
 end
 
 
-self.hash = GetMD5([H{:}]);
+self.hash = mtools.crypto.md5hash([H{:}]);
