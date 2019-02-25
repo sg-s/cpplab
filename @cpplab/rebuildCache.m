@@ -55,14 +55,14 @@ for i = 1:length(path_names)
 	if any(strfind(path_names{i},matlabroot))
 		continue
 	end
-	allfiles = getAllFiles(path_names{i});
+	allfiles = filelib.getAll(path_names{i});
 	for j = 1:length(allfiles)
 		if strcmp(allfiles{j}(end-3:end),'.hpp')
 			hpp_files{end+1} = allfiles{j};
 		end
 	end
 end
-lineWrite(cache_path,hpp_files);
+filelib.write(cache_path,hpp_files);
 
 % nuke the cache of saved cpplab files
 dir_name = [fileparts(fileparts(which(mfilename))) filesep 'cache'];

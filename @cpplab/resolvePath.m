@@ -43,7 +43,7 @@ end
 resolved_p = [];
 cache_path = [fileparts(fileparts(which(mfilename))) filesep 'paths.cpplab'];
 if exist(cache_path) == 2
-	hpp_files = lineRead(cache_path);
+	hpp_files = filelib.read(cache_path);
 else
 	hpp_files = {};
 end
@@ -57,7 +57,7 @@ if ispc
 end
 
 % first search the cache
-idx = lineFind(hpp_files,p);
+idx = filelib.find(hpp_files,p);
 
 if shallow
 	assert(length(idx) == 1,'[cpplab::resolvePath] could not resolve path. Try calling resolvePath without the shallow flag ')
@@ -69,7 +69,7 @@ if isempty(idx)
 	
 	cpplab.rebuildCache();
 
-	idx = lineFind(hpp_files,p);
+	idx = filelib.find(hpp_files,p);
 end
 
 if length(idx) > 1

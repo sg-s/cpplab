@@ -26,9 +26,9 @@ function [class_members, input_types, default_values] = readCPPClass(self,cppfil
 % check that it exists 
 assert(exist(cppfilename,'file') == 2,'C++ file not found.')
 
-class_name = pathEnd(cppfilename);
+class_name = pathlib.ext(cppfilename);
 lc = length(class_name);
-lines = lineRead(cppfilename);
+lines = filelib.read(cppfilename);
 
 % find the lines where the class is declared
 constructor_lines = [];
@@ -47,7 +47,7 @@ assert(length(constructor_lines) == 1, 'Expected exactly one constructor line; t
 
 constructor_line = lines{constructor_lines};
 
-classdef_line = lines{lineFind(lines,['class ' class_name])};
+classdef_line = lines{filelib.find(lines,['class ' class_name])};
 if ~isempty(strfind(classdef_line,'public'))
 	self.cpp_class_parent = strtrim(strrep(classdef_line(strfind(classdef_line,'public')+6:end),'{',''));
 else

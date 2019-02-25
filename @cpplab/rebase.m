@@ -29,13 +29,13 @@ You will need to call this method if you save a cpplab object to disk, move it t
 function rebase(self)
 
 % check that GetMD5 has been compiled
-temp = which('mtools.crypto.md5hash');
+temp = which('hashlib.md5hash');
 if isempty(temp)
-	mtools.crypto.md5compile;
+	hashlib.md5compile;
 end
 [~,~,ext] = fileparts(temp);
 if ~strcmp(ext,['.' mexext])
-	mtools.crypto.md5compile;
+	hashlib.md5compile;
 end
 
 
@@ -74,7 +74,7 @@ for i = 1:length(props)
 		%disp([strjoin(old_path,old_file_sep) '->' new_path ])
 
 		% verify that the hash of the new C++ file matches
-		assert(strcmp(self.cpp_hash,mtools.crypto.md5hash(new_path,'File')),'Hashes do not match! This means the C++ file that corresponds to this object cannot be identified or located.')
+		assert(strcmp(self.cpp_hash,hashlib.md5hash(new_path,'File')),'Hashes do not match! This means the C++ file that corresponds to this object cannot be identified or located.')
 
 		self.cpp_class_path = new_path;
 

@@ -48,13 +48,13 @@ methods
 	function self = cpplab(hpp_path, varargin)
 
 		% check that GetMd5 works and is installed
-		[~,~,ext]=fileparts(which('mtools.crypto.md5hash'));
+		[~,~,ext]=fileparts(which('hashlib.md5hash'));
 		if ~strcmp(['.' mexext,],ext)
 			if strcmp(ext,'.m')
-				assert(exist('mtools.crypto.md5hash.c') == 2,'Could not located mtools.crypto.md5hash.c on the path')
-				InstallMex('mtools.crypto.md5hash.c');
+				assert(exist('hashlib.md5hash.c') == 2,'Could not located hashlib.md5hash.c on the path')
+				InstallMex('hashlib.md5hash.c');
 			else
-				error('Could not find mtools.crypto.md5hash on the path.')
+				error('Could not find hashlib.md5hash on the path.')
 			end
 		end
 
@@ -73,7 +73,7 @@ methods
 			hpp_path = cpplab.resolvePath(hpp_path);
 		end
 
-		self.cpp_hash = mtools.crypto.md5hash(hpp_path,'File');
+		self.cpp_hash = hashlib.md5hash(hpp_path,'File');
 		self.hash = self.cpp_hash;
 
 		cache_name = [fileparts(fileparts(which(mfilename))) filesep 'cache' filesep self.hash '.cpplab'];
@@ -93,7 +93,7 @@ methods
 				self.(prop_names{i}) = default_values(i);
 			end
 
-			self.cpp_class_name = pathEnd(hpp_path);
+			self.cpp_class_name = pathlib.ext(hpp_path);
 			self.cpp_class_path = hpp_path;
 
 			% read child functions of this class 

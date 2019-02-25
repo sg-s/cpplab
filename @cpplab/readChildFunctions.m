@@ -23,10 +23,10 @@ Do not use this method.
 
 function child_functions = readChildFunctions(self)
 
-L = lineRead(self.cpp_class_path);
+L = filelib.read(self.cpp_class_path);
 
 
-function_declaration_lines = lineFind(L,[self.cpp_class_name '::']);
+function_declaration_lines = filelib.find(L,[self.cpp_class_name '::']);
 
 child_functions = struct('fun_name',[],'fun_handle',[],'fun_return_type',[],'fun_input_type',[],'fun_input_names',[]);
 
