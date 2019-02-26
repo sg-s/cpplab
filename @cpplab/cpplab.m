@@ -52,7 +52,7 @@ methods
 		if ~strcmp(['.' mexext,],ext)
 			if strcmp(ext,'.m')
 				assert(exist('+hashlib/md5hash.c') == 2,'Could not located hashlib.md5hash.c on the path')
-				InstallMex('hashlib.md5hash.c');
+				hashlib.md5compile('hashlib.md5hash.c');
 			else
 				error('Could not find hashlib.md5hash on the path.')
 			end
