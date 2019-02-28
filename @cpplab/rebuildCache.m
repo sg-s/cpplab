@@ -1,31 +1,31 @@
-%{ 
-                   _       _     
-  ___  _     _    | | __ _| |__  
- / __|| |_ _| |_  | |/ _` | '_ \ 
-| (_|_   _|_   _| | | (_| | |_) |
- \___||_|   |_|   |_|\__,_|_.__/ 
-
-
-### rebuildCache
-
-**Syntax**
-
-```
-cpplab.rebuildCache
-```
-
-**Description**
-
-This static method does two things:
-
-1. searches the MATLAB path and containing folders for C++ header files (with the extension .hpp), and makes a list of them that is stored in a file called `paths.cpplab`
-2. Destroys the `cache` folder, including all files in it, in the `cpplab` directory. 
-
-If you find that you are getting errors where cpplab complains it can't find certain files, a good first step is to run this method to rebuild the cache. 
-
-!!! info "See Also"
-    ->cpplab.resolvePath
-    ->cpplab.search
+%{
+%                    _       _     
+%   ___  _     _    | | __ _| |__
+%  / __|| |_ _| |_  | |/ _` | '_ \
+% | (_|_   _|_   _| | | (_| | |_) |
+%  \___||_|   |_|   |_|\__,_|_.__/
+%
+%
+% ### rebuildCache
+%
+% **Syntax**
+%
+% ```
+% cpplab.rebuildCache
+% ```
+%
+% **Description**
+%
+% This static method does two things:
+%
+% 1. searches the MATLAB path and containing folders for C++ header files (with the extension .hpp), and makes a list of them that is stored in a file called `paths.cpplab`
+% 2. Destroys the `cache` folder, including all files in it, in the `cpplab` directory.
+%
+% If you find that you are getting errors where cpplab complains it can't find certain files, a good first step is to run this method to rebuild the cache.
+%
+% !!! info "See Also"
+%     ->cpplab.resolvePath
+%     ->cpplab.search
 
 %}
 

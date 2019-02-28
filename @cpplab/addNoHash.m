@@ -1,19 +1,19 @@
-%{ 
-                   _       _     
-  ___  _     _    | | __ _| |__  
- / __|| |_ _| |_  | |/ _` | '_ \ 
-| (_|_   _|_   _| | | (_| | |_) |
- \___||_|   |_|   |_|\__,_|_.__/ 
-
-
-### addNoHash
-
-adds a cpplab object to another, but does not 
-update the hashes of the object being added to.
-Do not use this method, use `add()` instead. 
-
-!!! info "See Also"
-    ->cpplab.add
+%{
+%                    _       _     
+%   ___  _     _    | | __ _| |__
+%  / __|| |_ _| |_  | |/ _` | '_ \
+% | (_|_   _|_   _| | | (_| | |_) |
+%  \___||_|   |_|   |_|\__,_|_.__/
+%
+%
+% ### addNoHash
+%
+% adds a cpplab object to another, but does not
+% update the hashes of the object being added to.
+% Do not use this method, use `add()` instead.
+%
+% !!! info "See Also"
+%     ->cpplab.add
 
 %}
 
@@ -31,7 +31,7 @@ case 1
 		error('One argument provided, which is neither a string nor a cpplab object. I dont know what you want me to do')
 	end
 
-	
+
 case 2
 	if isa(varargin{2},'cpplab') && isa(varargin{1},'char')
 		name = varargin{1};

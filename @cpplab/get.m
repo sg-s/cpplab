@@ -1,34 +1,34 @@
-%{ 
-                   _       _     
-  ___  _     _    | | __ _| |__  
- / __|| |_ _| |_  | |/ _` | '_ \ 
-| (_|_   _|_   _| | | (_| | |_) |
- \___||_|   |_|   |_|\__,_|_.__/ 
-
-
-### get
-
-**Syntax**
-
-```
-V = C.get('child_parameter')
-V = C.set('*wildcard*string')
-V = C.set('*wildcard*string')
-```
-
-**Description**
-
-`get` is a method that allows you to quickly read values from 
-multiple objects and parameters in a nested cpplab tree. 
-
-- **`V = C.get('child_parameter')`** gets the value of the parameter specified by the character vector. 'child_parameter' must be a resolvable name, i.e., C.child_parameter should exist as a scalar. 
-- **`V = C.set('*wildcard*string')`** gets the values of all parameters in the cpplab object tree found using the wild card search string to the scalar value provided.
-- **`V = C.set('*wildcard*string')`** gets the values of all parameters in the cpplab object tree found using the wild card search string. 
-
-
-!!! info "See Also"
-    ->cpplab.find
-    ->cpplab.get
+%{
+%                    _       _     
+%   ___  _     _    | | __ _| |__
+%  / __|| |_ _| |_  | |/ _` | '_ \
+% | (_|_   _|_   _| | | (_| | |_) |
+%  \___||_|   |_|   |_|\__,_|_.__/
+%
+%
+% ### get
+%
+% **Syntax**
+%
+% ```
+% V = C.get('child_parameter')
+% V = C.set('*wildcard*string')
+% V = C.set('*wildcard*string')
+% ```
+%
+% **Description**
+%
+% `get` is a method that allows you to quickly read values from
+% multiple objects and parameters in a nested cpplab tree.
+%
+% - **`V = C.get('child_parameter')`** gets the value of the parameter specified by the character vector. 'child_parameter' must be a resolvable name, i.e., C.child_parameter should exist as a scalar.
+% - **`V = C.set('*wildcard*string')`** gets the values of all parameters in the cpplab object tree found using the wild card search string to the scalar value provided.
+% - **`V = C.set('*wildcard*string')`** gets the values of all parameters in the cpplab object tree found using the wild card search string.
+%
+%
+% !!! info "See Also"
+%     ->cpplab.find
+%     ->cpplab.get
 
 %}
 
@@ -67,4 +67,3 @@ for i = 1:length(ctree)
 		V = V.(ctree{i});
 	end
 end
-

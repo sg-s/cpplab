@@ -1,22 +1,22 @@
-%{ 
-                   _       _     
-  ___  _     _    | | __ _| |__  
- / __|| |_ _| |_  | |/ _` | '_ \ 
-| (_|_   _|_   _| | | (_| | |_) |
- \___||_|   |_|   |_|\__,_|_.__/ 
-
-
-### generateHeaders
-
-**Syntax**
-
-```
-H = C.generateHeaders
-```
-
-**Description**
-
-Do not use this method. 
+%{
+%                    _       _     
+%   ___  _     _    | | __ _| |__
+%  / __|| |_ _| |_  | |/ _` | '_ \
+% | (_|_   _|_   _| | | (_| | |_) |
+%  \___||_|   |_|   |_|\__,_|_.__/
+%
+%
+% ### generateHeaders
+%
+% **Syntax**
+%
+% ```
+% H = C.generateHeaders
+% ```
+%
+% **Description**
+%
+% Do not use this method.
 
 %}
 
