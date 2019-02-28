@@ -166,7 +166,7 @@ methods (Access = protected)
 			return
 		end
 
-		url = ['matlab:edit(' inputname(1) '.cpp_class_path)'];
+		url = ['matlab:edit(' self.cpp_class_path ')'];
 		fprintf(['' ' <a href="' url '">' self.cpp_class_name '</a> object (' h(1:7) ') with:\n\n'])
 
 		props = properties(self);
