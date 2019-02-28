@@ -1,4 +1,4 @@
-%{
+
 %                    _       _     
 %   ___  _     _    | | __ _| |__
 %  / __|| |_ _| |_  | |/ _` | '_ \
@@ -23,7 +23,7 @@
 % !!! See Also
 %     ->cpplab.serialize
 
-%}
+
 
 
 function deserialize(self,state)

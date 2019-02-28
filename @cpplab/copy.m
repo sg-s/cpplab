@@ -1,4 +1,4 @@
-%{
+
 %                    _       _     
 %   ___  _     _    | | __ _| |__
 %  / __|| |_ _| |_  | |/ _` | '_ \
@@ -30,7 +30,7 @@
 % changes in `C2`, and vice versa.
 %
 
-%}
+
 
 function N = copy(self)
 

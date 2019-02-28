@@ -1,4 +1,4 @@
-%{ 
+ 
                    _       _     
   ___  _     _    | | __ _| |__  
  / __|| |_ _| |_  | |/ _` | '_ \ 
@@ -28,7 +28,7 @@ from nesting vectors when it expects scalars.
     ->cpplab.find
     ->cpplab.get
 
-%}
+
 
 function self = subsasgn(self, S, value)
 

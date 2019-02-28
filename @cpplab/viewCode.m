@@ -1,4 +1,4 @@
-%{ 
+ 
                    _       _     
   ___  _     _    | | __ _| |__  
  / __|| |_ _| |_  | |/ _` | '_ \ 
@@ -19,7 +19,7 @@ C.viewCode()
 
 `viewCode` opens up the C++ file corresponding to this cpplab object in the default MATLAB editor. 
 
-%}
+
 
 
 function viewCode(self)

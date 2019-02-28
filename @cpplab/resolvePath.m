@@ -1,4 +1,4 @@
-%{
+
 %                    _       _     
 %   ___  _     _    | | __ _| |__
 %  / __|| |_ _| |_  | |/ _` | '_ \
@@ -31,7 +31,7 @@
 %     ->cpplab.search
 %     ->cpplab.find
 
-%}
+
 
 function [resolved_p, hpp_files] = resolvePath(p, shallow)
 

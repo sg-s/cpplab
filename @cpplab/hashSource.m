@@ -1,4 +1,4 @@
-%{
+
 %                    _       _     
 %   ___  _     _    | | __ _| |__
 %  / __|| |_ _| |_  | |/ _` | '_ \
@@ -22,7 +22,7 @@
 %     ->cpplab.shallowHash
 %     ->cpplab.addNoHash
 
-%}
+
 function hashSource(self)
 
 if length(self) > 1

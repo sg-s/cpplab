@@ -1,4 +1,4 @@
-%{
+
 %                    _       _     
 %   ___  _     _    | | __ _| |__
 %  / __|| |_ _| |_  | |/ _` | '_ \
@@ -28,7 +28,7 @@
 % !!! info "See Also"
 %     ->cpplab.find
 
-%}
+
 
 
 function varargout = search(pattern)

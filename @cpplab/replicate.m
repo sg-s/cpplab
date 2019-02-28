@@ -1,4 +1,4 @@
-%{
+
 %                    _       _     
 %   ___  _     _    | | __ _| |__
 %  / __|| |_ _| |_  | |/ _` | '_ \
@@ -13,7 +13,7 @@
 %
 % Do not use this method.
 
-%}
+
 
 
 function replicate(self,thing,N)

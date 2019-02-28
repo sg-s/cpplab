@@ -1,4 +1,4 @@
-%{
+
 %                    _       _     
 %   ___  _     _    | | __ _| |__
 %  / __|| |_ _| |_  | |/ _` | '_ \
@@ -31,7 +31,7 @@
 %     ->cpplab.deserialize
 %     ->cpplab.get
 
-%}
+
 
 
 function [values, names, is_relational, real_names] = serialize(self, prefix, real_prefix)
