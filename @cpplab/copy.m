@@ -1,36 +1,36 @@
-%{ 
-                   _       _     
-  ___  _     _    | | __ _| |__  
- / __|| |_ _| |_  | |/ _` | '_ \ 
-| (_|_   _|_   _| | | (_| | |_) |
- \___||_|   |_|   |_|\__,_|_.__/ 
+
+%                    _       _     
+%   ___  _     _    | | __ _| |__
+%  / __|| |_ _| |_  | |/ _` | '_ \
+% | (_|_   _|_   _| | | (_| | |_) |
+%  \___||_|   |_|   |_|\__,_|_.__/
+%
+%
+% ### copy
+%
+% makes a copy of a cpplab object
+%
+% **Syntax**
+%
+% ```
+% C2 = copy(C)
+% ```
+%
+% **Description**
+%
+% Since `cpplab` objects inherit from MATLAB's handle class,
+% they cannot be copied using simple assignation. That means that
+%
+% ```
+% % assuming C is a cpplab object
+% C2 = C;
+% ```
+%
+% does not make a copy of `C`, and changes in `C` manifest as
+% changes in `C2`, and vice versa.
+%
 
 
-### copy
-
-makes a copy of a cpplab object
-
-**Syntax**
-
-```
-C2 = copy(C)
-```
-
-**Description**
-
-Since `cpplab` objects inherit from MATLAB's handle class, 
-they cannot be copied using simple assignation. That means that
-
-```
-% assuming C is a cpplab object
-C2 = C;
-```
-
-does not make a copy of `C`, and changes in `C` manifest as 
-changes in `C2`, and vice versa.
-
-
-%}
 
 function N = copy(self)
 

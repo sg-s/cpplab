@@ -1,37 +1,37 @@
-%{ 
-                   _       _     
-  ___  _     _    | | __ _| |__  
- / __|| |_ _| |_  | |/ _` | '_ \ 
-| (_|_   _|_   _| | | (_| | |_) |
- \___||_|   |_|   |_|\__,_|_.__/ 
+
+%                    _       _     
+%   ___  _     _    | | __ _| |__
+%  / __|| |_ _| |_  | |/ _` | '_ \
+% | (_|_   _|_   _| | | (_| | |_) |
+%  \___||_|   |_|   |_|\__,_|_.__/
+%
+%
+% ### find
+%
+% **Syntax**
+%
+% ```
+% object_names = find(self,cpp_parent_class_name)
+% object_names = find(self,object_name)
+% object_names = find(self,'*wildcard*parameter')
+% ```
+%
+% **Description**
+%
+% finds objects in a structure cpplab tree that consists
+% of nested objects.
+%
+%
+% `object_names = find(self,cpp_parent_class_name)`
+%
+%
+%
+%
+% !!! info "See Also"
+%     ->cpplab.get
+%     ->cpplab.set
 
 
-### find
-
-**Syntax**
-
-```
-object_names = find(self,cpp_parent_class_name)
-object_names = find(self,object_name)
-object_names = find(self,'*wildcard*parameter')
-```
-
-**Description**
-
-finds objects in a structure cpplab tree that consists
-of nested objects. 
-
-
-`object_names = find(self,cpp_parent_class_name)`
-
-
-
-
-!!! info "See Also"
-    ->cpplab.get
-    ->cpplab.set
-
-%}
 
 
 function objects = find(self,pattern,prefix)
@@ -49,7 +49,7 @@ if any(strfind(pattern,'*'))
 		end
 	end
 
-	
+
 
 	regStr = ['^',strrep(strrep(pattern,'?','.'),'*','.{0,}'),'$'];
 	starts = regexpi(real_names, regStr);

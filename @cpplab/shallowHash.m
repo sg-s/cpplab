@@ -1,30 +1,30 @@
-%{ 
-                   _       _     
-  ___  _     _    | | __ _| |__  
- / __|| |_ _| |_  | |/ _` | '_ \ 
-| (_|_   _|_   _| | | (_| | |_) |
- \___||_|   |_|   |_|\__,_|_.__/ 
+
+%                    _       _     
+%   ___  _     _    | | __ _| |__
+%  / __|| |_ _| |_  | |/ _` | '_ \
+% | (_|_   _|_   _| | | (_| | |_) |
+%  \___||_|   |_|   |_|\__,_|_.__/
+%
+%
+% ### shallowHash
+%
+% **Syntax**
+%
+% ```
+% C.shallowHash
+% ```
+%
+% **Description**
+%
+% `shallowHash` computes the hash of a cpplab object using
+% the hashes of its children. Hashes are MD5 hashes computed
+% using GetMD5
+%
+% !!! info "See Also"
+%     ->cpplab.add
+%     ->cpplab.addNoHash
 
 
-### shallowHash
-
-**Syntax**
-
-```
-C.shallowHash
-```
-
-**Description**
-
-`shallowHash` computes the hash of a cpplab object using
-the hashes of its children. Hashes are MD5 hashes computed
-using GetMD5
-
-!!! info "See Also"
-    ->cpplab.add
-    ->cpplab.addNoHash
-
-%}
 
 
 function shallowHash(self)
@@ -51,7 +51,7 @@ for i = length(self.Children):-1:1
 	else
 		error('Found a vector of cpplab children, which cannot be hashed yet.')
 	end
-	
+
 end
 
 if isempty(self.cpp_hash)

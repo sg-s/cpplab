@@ -1,24 +1,24 @@
-%{ 
-                   _       _     
-  ___  _     _    | | __ _| |__  
- / __|| |_ _| |_  | |/ _` | '_ \ 
-| (_|_   _|_   _| | | (_| | |_) |
- \___||_|   |_|   |_|\__,_|_.__/ 
+
+%                    _       _     
+%   ___  _     _    | | __ _| |__
+%  / __|| |_ _| |_  | |/ _` | '_ \
+% | (_|_   _|_   _| | | (_| | |_) |
+%  \___||_|   |_|   |_|\__,_|_.__/
+%
+%
+% ### readChildFunctions
+%
+% **Syntax**
+%
+% ```
+% child_functions = C.readChildFunctions
+% ```
+%
+% **Description**
+%
+% Do not use this method.
 
 
-### readChildFunctions
-
-**Syntax**
-
-```
-child_functions = C.readChildFunctions
-```
-
-**Description**
-
-Do not use this method. 
-
-%}
 
 
 function child_functions = readChildFunctions(self)
@@ -33,7 +33,7 @@ child_functions = struct('fun_name',[],'fun_handle',[],'fun_return_type',[],'fun
 
 
 for i = 1:length(function_declaration_lines)
-	% determine output type 
+	% determine output type
 
 	S = struct('fun_name',[],'fun_handle',[],'fun_return_type',[],'fun_input_type',[],'fun_input_names',[]);
 
@@ -61,7 +61,7 @@ for i = 1:length(function_declaration_lines)
 
 	if strcmp(S.fun_return_type,'double')
 		try
-			% for now, it will only work for one line functions 
+			% for now, it will only work for one line functions
 			this_line = L{function_declaration_lines(i)};
 			a = strfind(this_line,'{');
 			z = strfind(this_line,'}');
@@ -76,7 +76,7 @@ for i = 1:length(function_declaration_lines)
 		catch
 		end
 	else
-		
+
 	end
 	child_functions = [child_functions; S];
 end

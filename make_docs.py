@@ -58,7 +58,7 @@ for file in sorted(glob.glob("@cpplab/*.m")):
 
 	for i in range(a,z):
 		thisline = lines[i]
-		thisline = thisline.replace('%}','')
+		thisline = thisline.replace('','')
 
 		# insert hyperlinks to other methods 
 		if thisline.lower().find('->cpplab.') != -1:

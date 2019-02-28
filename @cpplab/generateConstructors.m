@@ -1,24 +1,24 @@
-%{ 
-                   _       _     
-  ___  _     _    | | __ _| |__  
- / __|| |_ _| |_  | |/ _` | '_ \ 
-| (_|_   _|_   _| | | (_| | |_) |
- \___||_|   |_|   |_|\__,_|_.__/ 
+
+%                    _       _     
+%   ___  _     _    | | __ _| |__
+%  / __|| |_ _| |_  | |/ _` | '_ \
+% | (_|_   _|_   _| | | (_| | |_) |
+%  \___||_|   |_|   |_|\__,_|_.__/
+%
+%
+% ### generateConstructors
+%
+% **Syntax**
+%
+% ```
+% [constructors, cpp_class_parent, names] = C.generateConstructors(prefix)
+% ```
+%
+% **Description**
+%
+% Do not use this method.
 
 
-### generateConstructors
-
-**Syntax**
-
-```
-[constructors, cpp_class_parent, names] = C.generateConstructors(prefix)
-```
-
-**Description**
-
-Do not use this method. 
-
-%}
 
 
 function [constructors, cpp_class_parent, names] = generateConstructors(self, prefix)
@@ -38,7 +38,7 @@ for i = 1:length(props)
 	if isa(self.(props{i}),'cpplab') && length(self.(props{i})) == 1
 
 		S = self.(props{i});
-		
+
 		cpp_con_sig = S.cpp_constructor_signature;
 		cpp_class_parent = [cpp_class_parent; S.cpp_class_parent];
 		names = [names; prefix props{i}];
@@ -57,7 +57,7 @@ for i = 1:length(props)
 	elseif isa(self.(props{i}),'cpplab') && length(self.(props{i})) > 1
 		for j = 1:length(self.(props{i}))
 			S = self.(props{i})(j);
-			
+
 			cpp_con_sig = S.cpp_constructor_signature;
 			cpp_class_parent = [cpp_class_parent; S.cpp_class_parent];
 			names = [names; prefix props{i} mat2str(j)];

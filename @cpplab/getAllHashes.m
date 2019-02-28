@@ -1,24 +1,24 @@
-%{ 
-                   _       _     
-  ___  _     _    | | __ _| |__  
- / __|| |_ _| |_  | |/ _` | '_ \ 
-| (_|_   _|_   _| | | (_| | |_) |
- \___||_|   |_|   |_|\__,_|_.__/ 
+
+%                    _       _     
+%   ___  _     _    | | __ _| |__
+%  / __|| |_ _| |_  | |/ _` | '_ \
+% | (_|_   _|_   _| | | (_| | |_) |
+%  \___||_|   |_|   |_|\__,_|_.__/
+%
+%
+% ### getAllHashes
+%
+% **Syntax**
+%
+% ```
+% H = C.getAllHashes
+% ```
+%
+% **Description**
+%
+% Do not use this method.
 
 
-### getAllHashes
-
-**Syntax**
-
-```
-H = C.getAllHashes
-```
-
-**Description**
-
-Do not use this method. 
-
-%}
 
 
 function H = getAllHashes(self)

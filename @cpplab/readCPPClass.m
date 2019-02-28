@@ -1,29 +1,29 @@
-%{ 
-                   _       _     
-  ___  _     _    | | __ _| |__  
- / __|| |_ _| |_  | |/ _` | '_ \ 
-| (_|_   _|_   _| | | (_| | |_) |
- \___||_|   |_|   |_|\__,_|_.__/ 
+
+%                    _       _     
+%   ___  _     _    | | __ _| |__
+%  / __|| |_ _| |_  | |/ _` | '_ \
+% | (_|_   _|_   _| | | (_| | |_) |
+%  \___||_|   |_|   |_|\__,_|_.__/
+%
+%
+% ### readCPPClass
+%
+% **Syntax**
+%
+% ```
+%  [class_members, input_types, default_values] = C.readCPPClass(cppfilename)
+%
+% ```
+%
+% **Description**
+%
+% Do not use this method.
 
 
-### readCPPClass
-
-**Syntax**
-
-```
- [class_members, input_types, default_values] = C.readCPPClass(cppfilename)
-
-```
-
-**Description**
-
-Do not use this method. 
-
-%}
 
 function [class_members, input_types, default_values] = readCPPClass(self,cppfilename)
 
-% check that it exists 
+% check that it exists
 assert(exist(cppfilename,'file') == 2,'C++ file not found.')
 
 class_name = pathlib.name(cppfilename);
@@ -34,7 +34,7 @@ lines = filelib.read(cppfilename);
 constructor_lines = [];
 for i = 1:length(lines)
 	this_line = strtrim(lines{i});
-	if length(this_line) < lc + 1 
+	if length(this_line) < lc + 1
 		continue
 	end
 	if strcmp(strtrim(this_line(1:lc+1)),[class_name '('])
@@ -55,7 +55,7 @@ else
 end
 
 
-% figure out the input variables to the constructor 
+% figure out the input variables to the constructor
 input_variables = {};
 input_types = {};
 
@@ -70,7 +70,7 @@ while length(z) > 0
 	input_types = [input_types; strtrim(this_input(1:space_loc))];
 	input_variables = [input_variables; strtrim(this_input(space_loc:end))];
 	a = a+z;
-	z = strfind(constructor_line(a:end),','); 
+	z = strfind(constructor_line(a:end),',');
 end
 
 % get the last one too
@@ -83,7 +83,7 @@ input_variables = [input_variables; strtrim(this_input(space_loc:end))];
 
 
 % read the actual constructor and figure out the mapping from the input variables to something
-% that something is assumed to be members of this class. 
+% that something is assumed to be members of this class.
 constructor_start = [];
 constructor_stop = [];
 idx = constructor_lines;
@@ -139,7 +139,7 @@ for i = 1:length(class_members)
 
 
 	for j = 1:length(lines)
-		
+
 		if any(strfind(lines{j},'=')) && any(regexp(lines{j},r1))
 			default_values(i) = str2double(lines{j}(strfind(lines{j},'=')+1:strfind(lines{j},';')-1));
 
@@ -151,4 +151,3 @@ for i = 1:length(class_members)
 		end
 	end
 end
-
