@@ -68,13 +68,15 @@ end
 if isempty(idx)
 	
 	cpplab.rebuildCache();
-
+	hpp_files = filelib.read(cache_path);
 	idx = filelib.find(hpp_files,p);
 end
 
 if length(idx) > 1
 	idx = idx(1);
 end
+
+
 assert(length(idx) == 1,['[cpplab::resolvePath] could not resolve path while looking for object: ' p] )
 resolved_p = hpp_files{idx};
 

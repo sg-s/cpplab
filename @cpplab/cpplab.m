@@ -159,7 +159,7 @@ end % end static methods
 
 methods (Access = protected)
 	
-	function displayScalarObject(self)
+	function displayScalarObject(self, name)
 
 		h = self.cpp_hash;
 		if isempty(self.cpp_class_name)
@@ -220,7 +220,6 @@ methods (Access = protected)
 			end
 
 			if isa(self.(props{i}),'cpplab')
-				child_type = self.(props{i}).cpp_class_name;
 				url = ['matlab:' inputname(1) '.' props{i}];
 				disp(disp_string)
 				fprintf(['\b<a href="' url '">' self.(props{i}).cpp_class_name '</a> object\n'])
