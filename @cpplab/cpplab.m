@@ -159,7 +159,7 @@ end % end static methods
 
 methods (Access = protected)
 
-	function displayScalarObject(self, name)
+	function displayScalarObject(self)
 
 		h = self.cpp_hash;
 		if isempty(self.cpp_class_name)
