@@ -58,9 +58,9 @@ for i = 1:length(props)
 		old_path = strsplit(old_path,old_file_sep);
 
 
-		for i = 1:length(old_path)
+		for j = 1:length(old_path)
 			try
-				new_path = cpplab.resolvePath(strjoin(old_path(i:end),old_file_sep),true);
+				new_path = cpplab.resolvePath(strjoin(old_path(j:end),old_file_sep),false);
 				break
 			catch err
 				if any(strfind(err.message,'could not resolve path'))

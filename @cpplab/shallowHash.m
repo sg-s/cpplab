@@ -18,7 +18,7 @@
 %
 % `shallowHash` computes the hash of a cpplab object using
 % the hashes of its children. Hashes are MD5 hashes computed
-% using GetMD5
+% using hashlib.md5hash
 %
 % !!! info "See Also"
 %     ->cpplab.add

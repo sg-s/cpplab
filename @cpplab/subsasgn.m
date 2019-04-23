@@ -1,32 +1,32 @@
  
-                   _       _     
-  ___  _     _    | | __ _| |__  
- / __|| |_ _| |_  | |/ _` | '_ \ 
-| (_|_   _|_   _| | | (_| | |_) |
- \___||_|   |_|   |_|\__,_|_.__/ 
+%                    _       _     
+%   ___  _     _    | | __ _| |__  
+%  / __|| |_ _| |_  | |/ _` | '_ \ 
+% | (_|_   _|_   _| | | (_| | |_) |
+%  \___||_|   |_|   |_|\__,_|_.__/ 
 
 
-### subsasgn
+% ### subsasgn
 
-**Syntax**
+% **Syntax**
 
-```
-subsasgn(self, S, value)
-```
-
-
-**Description**
-
-`subsasgn` is an overloaded method of cpplab that 
-first checks that assignation that you're trying to do
-is legal. It prevents you from overwriting a cpplab object
-in a nested cpplab tree with a scalar, and prevents you
-from nesting vectors when it expects scalars. 
+% ```
+% subsasgn(self, S, value)
+% ```
 
 
-!!! info "See Also"
-    ->cpplab.find
-    ->cpplab.get
+% **Description**
+
+% `subsasgn` is an overloaded method of cpplab that 
+% first checks that assignation that you're trying to do
+% is legal. It prevents you from overwriting a cpplab object
+% in a nested cpplab tree with a scalar, and prevents you
+% from nesting vectors when it expects scalars. 
+
+
+% !!! info "See Also"
+%     ->cpplab.find
+%     ->cpplab.get
 
 
 
