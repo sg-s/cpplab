@@ -96,3 +96,6 @@ ans =
 
 ```
 
+# Please make this stop
+
+To see `cpplab` in action, check out the project for which this was created: [xolotl, a neuron and network simulator](https://github.com/sg-s/xolotl/) to get a flavour for some of the wilder things you can do with this framework. 
