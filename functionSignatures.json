@@ -1,0 +1,10 @@
+{
+    "cpplab":
+    {
+        "inputs":
+        [
+            {"name":"hpp_path", "kind":"required", "type":"choices=cpplab.search('')"}
+        ]
+    }
+
+}
