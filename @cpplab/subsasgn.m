@@ -40,12 +40,12 @@ if z == 1 & strcmp(class(self),'cpplab')
 	type_ok = isa(value,'double') || isa(value,'cpplab') || isa(value,'function_handle');
 	assert(isscalar(value),['Error assigning value to ' strjoin({S(1:z).subs},'.') , ' :: value must be a scalar  '])
 elseif z == 1
-	% self is of some dervied class, so anything goes
+	% self is of some derived class, so anything goes
 	type_ok = true;
 elseif  strcmp(class(subsref(self,S(1:z-1))),'cpplab') && ~isempty(value)
 	% derived class, but we may be indexing into a cpplab object
 	
-	assert(isscalar(value),'Error assigning value. Value must be a scalar ')
+	assert(isscalar(value),['Error assigning value to ' strjoin({S(1:z).subs},'.') , ' :: value must be a scalar.  '])
 	type_ok = isa(value,'double') || isa(value,'cpplab') || isa(value,'function_handle');
 
 elseif  strcmp(class(subsref(self,S(1:z-1))),'cpplab') && isempty(value)
@@ -58,11 +58,13 @@ elseif isa(subsref(self,S(1:z-1)),'struct')
 end
 
 
-assert(type_ok,'Error assigning value. Value must be a scalar ')
+assert(type_ok,['Error assigning value to ' strjoin({S(1:z).subs},'.') , ' :: value must be a scalar.  '])
 
 if isa(subsref(self,S),'cpplab')
 	temp = subsref(self,S);
 	error(['You cannot overwrite an object of type "' temp.cpp_class_name '" with a scalar'])
+elseif isa(subsref(self,S),'double')
+	assert(isa(value,'double'),['You cannot replace an object that has type "double" with anything that is not a double'])
 end
 
 self = builtin('subsasgn',self,S,value);
