@@ -56,24 +56,30 @@ end
 
 
 ctree = strsplit(thing,'.');
-V = self;
 
+
+% why use this complicated assignment instead of
+% using the built-in subsasgn method?
+% because this is actually an order of magnitude faster
+V = self;
 for i = 1:length(ctree)
-	if any(strfind(ctree{i},'('))
-		fn = ctree{i}(1:strfind(ctree{i},'(')-1);
-		a = strfind(ctree{i},'(') + 1;
-		z = strfind(ctree{i},')') - 1;
-		fidx = str2double(ctree{i}(a:z));
-		if i < length(ctree)
-			V = V.(fn)(fidx);
-		else
-			V.(fn)(fidx) = value;
-		end
-	else
+	% if any(strfind(ctree{i},'('))
+	% 	fn = ctree{i}(1:strfind(ctree{i},'(')-1);
+	% 	a = strfind(ctree{i},'(') + 1;
+	% 	z = strfind(ctree{i},')') - 1;
+	% 	fidx = str2double(ctree{i}(a:z));
+	% 	if i < length(ctree)
+	% 		V = V.(fn)(fidx);
+	% 	else
+	% 		V.(fn)(fidx) = value;
+	% 	end
+	% else
 		if i < length(ctree)
 			V = V.(ctree{i});
 		else
 			V.(ctree{end}) = value;
 		end
-	end
+	%end
 end
+
+

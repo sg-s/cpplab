@@ -55,15 +55,20 @@ end
 
 
 ctree = strsplit(thing,'.');
-V = self;
 
+% once again, using this hack is faster than using
+% matlab's built in subsref method
+V = self;
 for i = 1:length(ctree)
-	if any(strfind(ctree{i},'('))
-		a = strfind(ctree{i},'(');
-		z = strfind(ctree{i},')');
-		idx = str2double(ctree{i}(a+1:z-1));
-		V = V.(ctree{i}(1:a-1))(idx);
-	else
-		V = V.(ctree{i});
-	end
+	V = V.(ctree{i});
 end
+
+
+
+% S = struct('type','.','subs','');
+% for i = 1:length(ctree)
+% 	S(i).type = '.';
+% 	S(i).subs = ctree{i};
+% end
+
+% V = builtin('subsref',self,S);
