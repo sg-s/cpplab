@@ -220,6 +220,7 @@ methods (Access = protected)
 			end
 
 			if isa(self.(props{i}),'cpplab')
+				
 				url = ['matlab:' inputname(1) '.' props{i}];
 				disp(disp_string)
 				fprintf(['\b<a href="' url '">' self.(props{i}).cpp_class_name '</a> object\n'])
