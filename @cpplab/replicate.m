@@ -27,8 +27,6 @@ if N == 1
 	return
 end
 
-skip_hash_state = self.skip_hash;
-self.skip_hash = true;
 
 new_len = self.(thing).len/N;
 
@@ -53,6 +51,3 @@ end
 
 % we're going to cheat and not rehash the entire tree
 self.hash = GetMD5([self.hash GetMD5(N)]);
-
-
-self.skip_hash = skip_hash_state;

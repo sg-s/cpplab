@@ -14,7 +14,7 @@
 
 classdef  cpplab < dynamicprops  & matlab.mixin.CustomDisplay
 
-properties (SetAccess = private)
+properties (SetAccess = protected)
 	cpp_class_name
 	cpp_class_path
 	cpp_constructor_signature
@@ -28,7 +28,10 @@ properties (SetAccess = private)
 
 	hash
 	cpp_hash
-end % end props
+
+	
+end % end protected props
+
 
 properties (Access = private)
 	dynamic_prop_handle
@@ -37,7 +40,6 @@ end
 
 properties
 	Children
-	skip_hash@logical = false;
 end
 
 
@@ -197,11 +199,9 @@ methods (Access = protected)
 
 			if isa(self.(props{i}),'cpplab')
 			else
-				if isnumeric(self.(props{i})) && ~strcmp(props{i},'skip_hash')
+				if isnumeric(self.(props{i})) 
 					disp_string = [disp_string mat2str(self.(props{i}))];
 				elseif strcmp(props{i},'hash')
-					continue
-				elseif strcmp(props{i},'skip_hash')
 					continue
 				else
 					disp_string = [disp_string class(self.(props{i}))];
