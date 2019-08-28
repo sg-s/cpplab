@@ -32,39 +32,55 @@
 
 function self = subsasgn(self, S, value)
 
-type_ok = true;
 
-% figure out the lowest dot notation level
-z = find(strcmp({S.type},'.'),1,'last');
-if z == 1 & strcmp(class(self),'cpplab')
-	type_ok = isa(value,'double') || isa(value,'cpplab') || isa(value,'function_handle');
-	assert(isscalar(value),['Error assigning value to ' strjoin({S(1:z).subs},'.') , ' :: value must be a scalar  '])
-elseif z == 1
-	% self is of some derived class, so anything goes
-	type_ok = true;
-elseif  strcmp(class(subsref(self,S(1:z-1))),'cpplab') && ~isempty(value)
-	% derived class, but we may be indexing into a cpplab object
-	
-	assert(isscalar(value),['Error assigning value to ' strjoin({S(1:z).subs},'.') , ' :: value must be a scalar.  '])
-	type_ok = isa(value,'double') || isa(value,'cpplab') || isa(value,'function_handle');
-
-elseif  strcmp(class(subsref(self,S(1:z-1))),'cpplab') && isempty(value)
-	error('You cannot assign an empty vector a cpplab object. If you meant to remove this object from the tree, use the "destroy" method')
-
-elseif isa(subsref(self,S(1:z-1)),'struct')
-	% assigning to a struct, so anything goes?
-	self = builtin('subsasgn',self,S,value);
+% how many levels of dot notation are we at?
+if length(S) > 1
+	obj = subsref(self,S(1:end-1));
+	if isa(obj,'cpplab')
+		obj.subsasgn(S(end),value);
+	else
+		% not a cpplab object, so no rules apply
+		self = builtin('subsasgn',self,S,value);
+		return
+	end
 	return
 end
 
+% prevent overwriting protected members of cpplab
+mc = metaclass(self);
+idx = (strcmp({mc.PropertyList.Name},S.subs));
+if any(idx)
+	if ~strcmp(mc.PropertyList(idx).SetAccess,'public')
+		error(['The property you are trying to change, "' S.subs '", is read only and cannot be changed'])
+	end
 
-assert(type_ok,['Error assigning value to ' strjoin({S(1:z).subs},'.') , ' :: value must be a scalar.  '])
+	% check if there is a defined set method, and if so, defer to it
+	if ~isempty(mc.PropertyList(idx).SetMethod)
+		% call that
+		mc.PropertyList(idx).SetMethod(self,value);
+		return
+	end
 
-if isa(subsref(self,S),'cpplab')
-	temp = subsref(self,S);
-	error(['You cannot overwrite an object of type "' temp.cpp_class_name '" with a scalar'])
-elseif isa(subsref(self,S),'double')
-	assert(isa(value,'double'),['You cannot replace an object that has type "double" with anything that is not a double'])
 end
 
-self = builtin('subsasgn',self,S,value);
+% at this point we can assume that self is a cpplab object
+% and that we are allowed write access to the property
+
+
+% get the value of the thing 
+current_class = class(self.(S.subs));
+
+% enforce scalar values for doubles
+if isa(self.(S.subs),'double')
+	err_msg = ['The value you are trying to assing has size ' mat2str(size(value)) ' but it must be a scalar'];
+
+	assert(length(value)==1,err_msg)
+end
+
+% check that new value and old value are same class
+err_msg = ['You cannot assign an object of class "' class(value) '" to an object of class "' current_class '"'];
+assert(strcmp(class(value),current_class),err_msg)
+
+% assign
+self.(S.subs) = value;
+
