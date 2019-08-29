@@ -50,9 +50,15 @@ if any(strfind(pattern,'*'))
 	end
 
 
+	% old code, not sure why we're doing this
+	%regStr = ['^',strrep(strrep(pattern,'?','.'),'*','.{0,}'),'$'];
 
-	regStr = ['^',strrep(strrep(pattern,'?','.'),'*','.{0,}'),'$'];
-	starts = regexpi(real_names, regStr);
+	% replace all the wild cards with regex-versions of a wildcard
+	% which is (.*)
+	regStr = strrep(pattern,'.','\.'); 
+	regStr = strrep(regStr,'*','(.*)');
+	
+	starts = regexp(real_names, regStr);
 	iMatch = ~cellfun(@isempty, starts);
 	idx = find(iMatch);
 
