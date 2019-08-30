@@ -25,19 +25,10 @@
 
 function hashSource(self)
 
-if length(self) > 1
-	for i = 1:length(self)
-		self(i).hashSource;
-	end
-	return
-end
+
+self.shallowHash;
 
 
-if ~isempty(self.Children)
-	self.shallowHash;
-end
-
-if isempty(self.parent)
-else
+if ~isempty(self.parent)
 	hashSource(self.parent);
 end

@@ -72,19 +72,8 @@ otherwise
 	end
 end
 
-% tell the child what its name is
-if ~isempty(thing.cpp_lab_name) && ~strcmp(thing.cpp_lab_name,name)
-	% mismatch between what the thing is named and what it should
-	% be named. This typically happens when copying objects
-	for i = 1:length(thing.cpp_lab_real_names)
-		thing.cpp_lab_real_names{i} = strrep(thing.cpp_lab_real_names{i},thing.cpp_lab_name, name);
-	end
-end
-thing.cpp_lab_name = name;
-
 
 % wire up connectors
-
 p = self.addprop(name);
 p.NonCopyable = false;
 self.(name) = thing;
@@ -126,7 +115,7 @@ end
 if ~isempty(thing.cpp_lab_real_names)
 	thing_real_names = thing.cpp_lab_real_names;
 	for i = 1:length(thing_real_names)
-		thing_real_names{i} = [thing.cpp_lab_name '.' thing_real_names{i}];
+		thing_real_names{i} = [thing.dynamic_prop_handle.Name '.' thing_real_names{i}];
 	end
 	add_these = unique([props(keep_this); thing_real_names]);
 else
@@ -143,5 +132,5 @@ end
 
 % propagate this upwards
 if ~isempty(self.parent)
-	updateRealNames(self.parent,self.cpp_lab_name,add_these)
+	updateRealNames(self.parent,self.dynamic_prop_handle.Name,add_these)
 end
