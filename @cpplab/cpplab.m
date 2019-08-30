@@ -21,7 +21,7 @@ properties (SetAccess = protected)
 	cpp_class_parent
 	cpp_child_functions
 	cpp_lab_real_names
-	cpp_lab_names
+	cpp_lab_name
 	cpp_lab_real_names_hash
 	cpp_lab_is_relational
 	hidden_props
@@ -44,7 +44,6 @@ end
 
 
 methods
-
 
 
 	function self = cpplab(hpp_path, varargin)
