@@ -63,12 +63,3 @@ for i = 1:length(ctree)
 	V = V.(ctree{i});
 end
 
-
-
-% S = struct('type','.','subs','');
-% for i = 1:length(ctree)
-% 	S(i).type = '.';
-% 	S(i).subs = ctree{i};
-% end
-
-% V = builtin('subsref',self,S);

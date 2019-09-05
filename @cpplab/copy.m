@@ -50,7 +50,7 @@ for i = 1:length(props)
 	N.(props{i}) = self.(props{i});
 end
 
-% copy cpplab propoerties by recurisvely calling copy
+% copy cpplab properties by recurisvely calling copy
 C = self.Children;
 for i = 1:length(C)
 	NN = self.(C{i}).copy;

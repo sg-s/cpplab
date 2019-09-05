@@ -74,7 +74,6 @@ end
 
 
 % wire up connectors
-
 p = self.addprop(name);
 p.NonCopyable = false;
 self.(name) = thing;
@@ -87,4 +86,51 @@ if isempty(self.Children)
 	self.Children = {name};
 else
 	self.Children = sort([self.Children name]);
+end
+
+
+% also update the cpp_lab_real_names property on the parent
+props = properties(thing);
+keep_this = false(length(props),1);
+
+
+for i = 1:length(props)
+	if any(strfind(props{i},'cpp_'))
+		continue
+	elseif strcmp(props{i},'hidden_props')
+		continue
+	elseif strcmp(props{i},'hash')
+		continue
+	elseif strcmp(props{i},'Children')
+		continue
+	elseif strcmp(props{i},'dynamic_prop_handle')
+		continue
+	elseif isa(thing.(props{i}),'cpplab')
+		continue
+	end
+	keep_this(i) = true;
+	props{i} = [name '.' props{i}];
+end
+
+if ~isempty(thing.cpp_lab_real_names)
+	thing_real_names = thing.cpp_lab_real_names;
+	for i = 1:length(thing_real_names)
+		thing_real_names{i} = [thing.dynamic_prop_handle.Name '.' thing_real_names{i}];
+	end
+	add_these = unique([props(keep_this); thing_real_names]);
+else
+	add_these = props(keep_this);
+end
+
+
+if isempty(self.cpp_lab_real_names)
+	self.cpp_lab_real_names = sort(add_these);
+else
+	% unique also sorts
+	self.cpp_lab_real_names = unique([self.cpp_lab_real_names; add_these]);
+end
+
+% propagate this upwards
+if ~isempty(self.parent)
+	updateRealNames(self.parent,self.dynamic_prop_handle.Name,add_these)
 end

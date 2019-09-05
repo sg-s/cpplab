@@ -39,30 +39,16 @@ function objects = find(self,pattern,prefix)
 if any(strfind(pattern,'*'))
 	% do a wildcard search
 
-	if ~isempty(self.cpp_lab_real_names_hash) && ~isempty(self.cpp_lab_real_names_hash) && strcmp(self.cpp_lab_real_names_hash, self.hash)
-		real_names = self.cpp_lab_real_names;
-	else
-		[~,~,~,real_names] = self.serialize;
-		if ~isempty(self.hash)
-			self.cpp_lab_real_names_hash = self.hash;
-			self.cpp_lab_real_names = real_names;
-		end
-	end
-
-
-	% old code, not sure why we're doing this
-	%regStr = ['^',strrep(strrep(pattern,'?','.'),'*','.{0,}'),'$'];
-
 	% replace all the wild cards with regex-versions of a wildcard
 	% which is (.*)
 	regStr = strrep(pattern,'.','\.'); 
 	regStr = strrep(regStr,'*','(.*)');
 	
-	starts = regexp(real_names, regStr);
+	starts = regexp(self.cpp_lab_real_names, regStr);
 	iMatch = ~cellfun(@isempty, starts);
 	idx = find(iMatch);
 
-	objects = real_names(idx);
+	objects = self.cpp_lab_real_names(idx);
 	return
 else
 end
