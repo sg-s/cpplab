@@ -103,6 +103,12 @@ for i = 1:length(props)
 		continue
 	elseif strcmp(props{i},'Children')
 		continue
+	elseif strcmp(props{i},'docstring')
+		continue
+	elseif strcmp(props{i},'sourcename')
+		continue
+	elseif strcmp(props{i},'sourceurl')
+		continue
 	elseif strcmp(props{i},'dynamic_prop_handle')
 		continue
 	elseif isa(thing.(props{i}),'cpplab')
