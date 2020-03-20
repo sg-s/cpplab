@@ -82,50 +82,11 @@ input_types = [input_types; strtrim(this_input(1:space_loc))];
 input_variables = [input_variables; strtrim(this_input(space_loc:end))];
 
 
-% read the actual constructor and figure out the mapping from the input variables to something
-% that something is assumed to be members of this class.
-constructor_start = [];
-constructor_stop = [];
-idx = constructor_lines;
-
-for i = idx:length(lines)
-	this_line = strtrim(lines{i});
-	if length(this_line) < 1
-		continue
-	end
-	if strcmp(this_line(1),'{')
-		constructor_start = i;
-		break
-	end
+% assume that the input variables are class members with an underscore after them
+class_members = input_variables;
+for i = 1:length(class_members)
+	class_members{i} = class_members{i}(1:end-1);
 end
-
-for i = constructor_start:length(lines)
-	this_line = strtrim(lines{i});
-	if length(this_line) < 1
-		continue
-	end
-	if strcmp(this_line(1),'}')
-		constructor_stop = i;
-		break
-	end
-end
-
-% find every one of the input variables in the constructor code
-member_variables = cell(length(input_variables),1);
-
-for i = 1:length(member_variables)
-	for j = constructor_start:constructor_stop
-		this_line = strtrim(lines{j});
-		this_line = strrep(this_line,' ','');
-
-		if any(strfind(this_line,['=' input_variables{i} ';']))
-			this_member = this_line(1:strfind(this_line,'=')-1);
-			member_variables{i} = this_member;
-		end
-	end
-end
-
-class_members = member_variables;
 
 
 % now figure out the defaults
@@ -150,4 +111,24 @@ for i = 1:length(class_members)
 
 		end
 	end
+end
+
+
+% now read the metadata
+self.docstring = '';
+self.sourceurl = '';
+self.sourcename = '';
+
+temp = filelib.find(lines,'component info');
+if ~isempty(temp)
+	temp = temp(1);
+	self.docstring = lines{temp}(strfind(lines{temp},'component info')+16:end);
+
+end
+
+temp = filelib.find(lines,'component source');
+if ~isempty(temp)
+	temp = temp(1);
+	self.sourcename = lines{temp}(strfind(lines{temp},'[')+1:strfind(lines{temp},']')-1);
+	self.sourceurl = lines{temp}(strfind(lines{temp},'(')+1:strfind(lines{temp},')')-1);
 end

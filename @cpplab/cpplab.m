@@ -27,6 +27,11 @@ properties (SetAccess = protected)
 	hash
 	cpp_hash
 
+	% information about where this cpplab object came from
+	docstring char
+	sourcename char
+	sourceurl char
+
 	
 end % end protected props
 
@@ -166,7 +171,18 @@ methods (Access = protected)
 		end
 
 		url = ['matlab:edit(' char(39) self.cpp_class_path  char(39) ')'];
-		fprintf(['' ' <a href="' url '">' self.cpp_class_name '</a> object (' h(1:7) ') with:\n\n'])
+
+
+		if ~isempty(self.sourcename) && ~isempty(self.sourceurl)
+			fprintf(['' ' <a href="' url '">' self.cpp_class_name '</a> object (<a href="' self.sourceurl '">' self.sourcename  '</a>) \n\n'])
+		else
+			fprintf(['' ' <a href="' url '">' self.cpp_class_name '</a> object (' h(1:7) ') \n\n'])
+		end
+
+		if ~isempty(self.docstring)
+			fprintf(self.docstring)
+			fprintf('\n\n')
+		end
 
 		props = properties(self);
 		max_len = 0;
@@ -184,6 +200,12 @@ methods (Access = protected)
 			elseif strcmp(props{i},'hidden_props')
 				continue
 			elseif strcmp(props{i},'Children')
+				continue
+			elseif strcmp(props{i},'docstring')
+				continue
+			elseif strcmp(props{i},'sourcename')
+				continue
+			elseif strcmp(props{i},'sourceurl')
 				continue
 			elseif strcmp(props{i},'dynamic_prop_handle')
 				continue
