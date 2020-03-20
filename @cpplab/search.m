@@ -73,27 +73,30 @@ else
 	disp('------------------------------------------------------------------------------------')
 
 	for i = 1:length(objects)
-		temp = cpplab(objects{i});
-		[~,name]=fileparts(objects{i});
+		try
+			temp = cpplab(objects{i});
+			[~,name]=fileparts(objects{i});
 
-		padding = 0;
-		if length(name) > 23
-			name = name(1:23);
-		else
-			padding = 23 - length(name);
+			padding = 0;
+			if length(name) > 23
+				name = name(1:23);
+			else
+				padding = 23 - length(name);
+			end
+
+			url = ['matlab:edit(' char(39) temp.cpp_class_path  char(39) ')'];
+			fprintf(['' ' <a href="' url '">' name '</a>'])
+
+			for j = 1:padding
+				fprintf(' ')
+			end
+
+			
+			fprintf(strlib.fix(temp.cpp_class_parent,20))
+			fprintf(strlib.fix(temp.docstring,50))
+			fprintf('\n')
+		catch
 		end
-
-		url = ['matlab:edit(' char(39) temp.cpp_class_path  char(39) ')'];
-		fprintf(['' ' <a href="' url '">' name '</a>'])
-
-		for j = 1:padding
-			fprintf(' ')
-		end
-
-		
-		fprintf(strlib.fix(temp.cpp_class_parent,20))
-		fprintf(strlib.fix(temp.docstring,50))
-		fprintf('\n')
 	end
 
 	disp('------------------------------------------------------------------------------------')
