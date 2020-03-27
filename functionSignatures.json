@@ -5,6 +5,15 @@
         [
             {"name":"hpp_path", "kind":"required", "type":"choices=cpplab.search('')"}
         ]
+    },
+
+    "cpplab.add":
+    {
+        "inputs":
+        [
+            {"name":"x","kind":"required","type":"cpplab"},
+            {"name":"obj", "kind":"required", "type":"choices=cpplab.search('*')"}
+        ]
     }
 
 }
