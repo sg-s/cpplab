@@ -42,6 +42,10 @@ for i = 1:length(lines)
 	end
 end
 
+
+% find the longest constructor
+[~,use_this] = max(cellfun(@length,lines(constructor_lines)));
+constructor_lines = constructor_lines(use_this);
 assert(length(constructor_lines) == 1, 'Expected exactly one constructor line; this was not what I found')
 
 
