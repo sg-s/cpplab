@@ -32,6 +32,8 @@
 
 function rebuildCache(path_names)
 
+disp('Rebuilding cache, this may take a while...')
+
 if nargin == 0
 	path_names = strsplit(path,pathsep);
 else
@@ -52,9 +54,12 @@ cache_path = [fileparts(fileparts(which(mfilename))) filesep 'paths.cpplab'];
 % rebuild the cache
 hpp_files = {};
 for i = 1:length(path_names)
+
 	if any(strfind(path_names{i},matlabroot))
 		continue
 	end
+	disp(path_names{i})
+
 	allfiles = filelib.getAll(path_names{i});
 	for j = 1:length(allfiles)
 		if strcmp(allfiles{j}(end-3:end),'.hpp')
@@ -70,3 +75,6 @@ if exist(dir_name,'file') == 7
 	rmdir(dir_name,'s')
 end
 mkdir(dir_name)
+
+
+disp(['All DONE! Found ' mat2str(length(hpp_files)) ' C++ files'])
