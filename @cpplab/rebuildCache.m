@@ -65,9 +65,17 @@ cache_path = fullfile(filelib.cachePath('cpplab'), 'paths.cpplab');
 hpp_files = {};
 for i = 1:length(path_names)
 
-	if any(strfind(path_names{i},matlabroot))
+	if any(strfind(path_names{i},[matlabroot filesep]))
 		continue
 	end
+
+	% this strip out things found in MATLAB online
+	if any(strfind(path_names{i},'SupportPackages'))
+		continue
+	end
+
+	
+
 	disp(path_names{i})
 
 	allfiles = filelib.getAll(path_names{i});
