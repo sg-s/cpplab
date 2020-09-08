@@ -41,7 +41,7 @@ end
 
 
 resolved_p = [];
-cache_path = fullfile(cpplab.cachePath, 'paths.cpplab');
+cache_path = fullfile(filelib.cachePath('cpplab'), 'paths.cpplab');
 
 if exist(cache_path) == 2
 	hpp_files = filelib.read(cache_path);

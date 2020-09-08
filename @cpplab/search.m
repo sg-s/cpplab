@@ -33,7 +33,7 @@
 
 function varargout = search(pattern)
 
-files = strsplit(fileread(fullfile(cpplab.cachePath,'paths.cpplab')),'\n')';
+files = strsplit(fileread(fullfile(filelib.cachePath('cpplab'),'paths.cpplab')),'\n')';
 files(cellfun(@isempty,files)) = [];
 
 if strcmp(pattern,'') | strcmp(pattern,'*')

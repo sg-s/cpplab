@@ -36,7 +36,7 @@ disp('Rebuilding cache, this may take a while...')
 
 
 % nuke the cache of saved cpplab files
-dir_name = cpplab.cachePath;
+dir_name = filelib.cachePath('cpplab');
 
 if exist(dir_name,'file') == 7
 	rmdir(dir_name,'s')
@@ -59,9 +59,7 @@ else
 	end
 end
 
-
-
-cache_path = fullfile(cpplab.cachePath, 'paths.cpplab');
+cache_path = fullfile(filelib.cachePath('cpplab'), 'paths.cpplab');
 
 % rebuild the cache
 hpp_files = {};

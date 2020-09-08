@@ -80,7 +80,7 @@ methods
 		self.cpp_hash = hashlib.md5hash(hpp_path,'File');
 		self.hash = self.cpp_hash;
 
-		cache_name = fullfile(cpplab.cachePath, [self.hash '.cpplab']);
+		cache_name = fullfile(filelib.cachePath('cpplab'), [self.hash '.cpplab']);
 
 		if exist(cache_name,'file') == 2
 			% already cached. load that.
