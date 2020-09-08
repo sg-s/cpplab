@@ -34,6 +34,18 @@ function rebuildCache(path_names)
 
 disp('Rebuilding cache, this may take a while...')
 
+
+% nuke the cache of saved cpplab files
+dir_name = cpplab.cachePath;
+
+if exist(dir_name,'file') == 7
+	rmdir(dir_name,'s')
+end
+mkdir(dir_name)
+
+
+
+
 if nargin == 0
 	path_names = strsplit(path,pathsep);
 else
@@ -49,7 +61,7 @@ end
 
 
 
-cache_path = [fileparts(fileparts(which(mfilename))) filesep 'paths.cpplab'];
+cache_path = fullfile(cpplab.cachePath, 'paths.cpplab');
 
 % rebuild the cache
 hpp_files = {};
@@ -67,14 +79,7 @@ for i = 1:length(path_names)
 		end
 	end
 end
+
 filelib.write(cache_path,hpp_files);
-
-% nuke the cache of saved cpplab files
-dir_name = [fileparts(fileparts(which(mfilename))) filesep 'cache'];
-if exist(dir_name,'file') == 7
-	rmdir(dir_name,'s')
-end
-mkdir(dir_name)
-
 
 disp(['All DONE! Found ' mat2str(length(hpp_files)) ' C++ files'])

@@ -80,7 +80,7 @@ methods
 		self.cpp_hash = hashlib.md5hash(hpp_path,'File');
 		self.hash = self.cpp_hash;
 
-		cache_name = [fileparts(fileparts(which(mfilename))) filesep 'cache' filesep self.hash '.cpplab'];
+		cache_name = fullfile(cpplab.cachePath, [self.hash '.cpplab']);
 
 		if exist(cache_name,'file') == 2
 			% already cached. load that.
@@ -156,6 +156,7 @@ methods (Static)
 	varargout = search(pattern);
 	rebuildCache(path_names)
 	[resolved_p, hpp_files] = resolvePath(p, shallow)
+	cache_path  = cachePath();
 
 
 end % end static methods
