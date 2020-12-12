@@ -30,7 +30,7 @@ function_declaration_lines = filelib.find(L,[self.cpp_class_name '::']);
 
 child_functions = struct('fun_name',[],'fun_handle',[],'fun_return_type',[],'fun_input_type',[],'fun_input_names',[]);
 
-
+child_functions = repmat(child_functions,length(function_declaration_lines),1);
 
 for i = 1:length(function_declaration_lines)
 	% determine output type
@@ -75,10 +75,8 @@ for i = 1:length(function_declaration_lines)
 			S.fun_handle = ff;
 		catch
 		end
-	else
-
 	end
-	child_functions = [child_functions; S];
+	child_functions(i) = S;
 end
 
 self.cpp_child_functions = child_functions;
