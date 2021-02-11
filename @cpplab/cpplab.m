@@ -51,6 +51,11 @@ methods
 
 	function self = cpplab(hpp_path, varargin)
 
+
+		% check that cpplab isn't being installed on the userpath
+		% but what if it's in a package? that's on the userpath...
+		assert(isempty(strfind(which('cpplab'),fullfile(userpath,'cpplab'))),'cpplab has been installed on the userpath, which will break functionality. Remove it and put it somewhere else.')
+
 		% check that GetMd5 works and is installed
 		[~,~,ext]=fileparts(which('hashlib.md5hash'));
 		if ~strcmp(['.' mexext,],ext)
