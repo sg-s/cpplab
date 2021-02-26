@@ -51,8 +51,13 @@ for i = 1:length(function_declaration_lines)
 		continue
 	end
 
+	if isempty(strtrim(this_line))
+		continue
+	end
+
 	temp = strsplit(this_line, {' ', '(' ,',' ,')' ,';' ,'//'});
 	temp(cellfun(@isempty,temp)) = [];
+
 	S.fun_return_type = temp{1};
 
 	S.fun_name = strrep(temp{2}, [self.cpp_class_name '::'],'');
