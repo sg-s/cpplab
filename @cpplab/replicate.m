@@ -19,7 +19,6 @@
 function replicate(self,thing,N)
 
 
-assert(isint(N),'N must be an integer >= 1')
 assert(isscalar(N),'N must be an integer >= 1')
 assert(N >= 1,'N must be an integer >= 1')
 
@@ -50,4 +49,4 @@ for i = 2:N
 end
 
 % we're going to cheat and not rehash the entire tree
-self.hash = GetMD5([self.hash GetMD5(N)]);
+self.hash = hashlib.md5hash([self.hash hashlib.md5hash(N)]);
