@@ -39,6 +39,9 @@ if nargin < 2
 	shallow = false;
 end
 
+% remove leading and trailing whitespace
+p = strip(p);
+
 
 resolved_p = [];
 cache_path = fullfile(filelib.cachePath('cpplab'), 'paths.cpplab');

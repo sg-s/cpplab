@@ -47,12 +47,13 @@ if strcmp(pattern,'') || strcmp(pattern,'*')
 	objects = files;
 else
 
-	pattern = strrep(pattern,'/','\/');
-	pattern = strrep(pattern,'+','\+');
-
-	starts = regexpi(files, pattern);
-	iMatch = ~cellfun(@isempty, starts);
-	idx = find(iMatch);
+% 	pattern = strrep(pattern,'/','\/');
+% 	pattern = strrep(pattern,'+','\+');
+% 
+% 	starts = regexpi(files, pattern);
+% 	iMatch = ~cellfun(@isempty, starts);
+% 	idx = find(iMatch);
+    idx = contains(files, pattern);
 
 	objects = files(idx);
 
@@ -89,7 +90,11 @@ else
 				name = name(1:23);
 			else
 				padding = 23 - length(name);
-			end
+            end
+
+            if ispc
+                temp.cpp_class_path = strrep(temp.cpp_class_path, '\', '\\');
+            end
 
 			url = ['matlab:edit(' char(39) temp.cpp_class_path  char(39) ')'];
 			fprintf(['' ' <a href="' url '">' name '</a>'])
