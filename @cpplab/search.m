@@ -90,7 +90,11 @@ else
 				name = name(1:23);
 			else
 				padding = 23 - length(name);
-			end
+            end
+
+            if ispc
+                temp.cpp_class_path = strrep(temp.cpp_class_path, '\', '\\');
+            end
 
 			url = ['matlab:edit(' char(39) temp.cpp_class_path  char(39) ')'];
 			fprintf(['' ' <a href="' url '">' name '</a>'])
