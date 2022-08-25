@@ -33,10 +33,17 @@
 
 function varargout = search(pattern)
 
-files = strsplit(fileread(fullfile(filelib.cachePath('cpplab'),'paths.cpplab')),'\n')';
+
+cache_file = fullfile(filelib.cachePath('cpplab'),'paths.cpplab');
+if ~isfile(cache_file)
+	cpplab.rebuildCache;
+end
+files = strsplit(fileread(cache_file),'\n')';
 files(cellfun(@isempty,files)) = [];
 
-if strcmp(pattern,'') | strcmp(pattern,'*')
+
+
+if strcmp(pattern,'') || strcmp(pattern,'*')
 	objects = files;
 else
 
@@ -51,7 +58,7 @@ else
 
 end
 
-if length(objects) == 0
+if isempty(objects)
 	disp('No objects found')
 	return
 end
