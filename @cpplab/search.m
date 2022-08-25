@@ -47,12 +47,13 @@ if strcmp(pattern,'') || strcmp(pattern,'*')
 	objects = files;
 else
 
-	pattern = strrep(pattern,'/','\/');
-	pattern = strrep(pattern,'+','\+');
-
-	starts = regexpi(files, pattern);
-	iMatch = ~cellfun(@isempty, starts);
-	idx = find(iMatch);
+% 	pattern = strrep(pattern,'/','\/');
+% 	pattern = strrep(pattern,'+','\+');
+% 
+% 	starts = regexpi(files, pattern);
+% 	iMatch = ~cellfun(@isempty, starts);
+% 	idx = find(iMatch);
+    idx = contains(files, pattern);
 
 	objects = files(idx);
 
